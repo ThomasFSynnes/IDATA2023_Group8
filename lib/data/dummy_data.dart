@@ -9,7 +9,7 @@ const availableManufactures = [
   Manufacture(
       id: 'm3', title: 'Samsung', imageUrl: 'assets/manufacture/samsung.png'),
   Manufacture(id: 'm4', title: 'Dell', imageUrl: 'assets/manufacture/dell.png'),
-  Manufacture(id: 'm5', title: 'Røde', imageUrl: 'assets/manufacture/rode.png'),
+  Manufacture(id: 'm5', title: 'Røde', imageUrl: 'assets/manufacture/rode.jpg'),
 ];
 
 const availableCategories = [

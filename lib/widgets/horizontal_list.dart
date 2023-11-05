@@ -16,7 +16,7 @@ class HorizontalList extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.all(12),
-        itemCount: list.length - 1,
+        itemCount: list.length,
         separatorBuilder: (context, index) {
           return const SizedBox(
             width: 12,
