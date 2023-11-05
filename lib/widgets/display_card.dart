@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_manuals_app/model/product.dart';
 
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
@@ -24,10 +23,13 @@ class DisplayCard extends StatelessWidget {
           onTap: () {},
           child: Stack(
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  item.imageUrl,
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(item.imageUrl),
+                    fit: BoxFit
+                        .cover, // Make the image cover all available space
+                  ),
                 ),
               ),
               Positioned(
