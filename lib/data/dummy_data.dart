@@ -14,9 +14,7 @@ const availableManufactures = [
 
 const availableCategories = [
   Category(
-      id: 'c1',
-      title: 'Smart Phones',
-      imageUrl: 'assets/data/dummy_images/category/phone.png'),
+      id: 'c1', title: 'Smart Phones', imageUrl: 'assets/categories/phone.png'),
   Category(
       id: 'c2', title: 'Speakers', imageUrl: 'assets/categories/speaker.png'),
   Category(
