@@ -50,7 +50,7 @@ class DisplayCard extends StatelessWidget {
                         overflow: TextOverflow
                             .ellipsis, //Cuts of very long text to end with ...
                         style: const TextStyle(
-                            fontSize: 15,
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
