@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/screens/product_screen.dart';
 
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
@@ -20,7 +22,12 @@ class DisplayCard extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         elevation: 2,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            if (item is Product) {
+              // Navigate to the product page
+              _selectProduct(context, item);
+            }
+          },
           child: Stack(
             children: [
               Container(
@@ -64,4 +71,12 @@ class DisplayCard extends StatelessWidget {
       ),
     );
   }
+}
+
+void _selectProduct(BuildContext context, Product product) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (ctx) => ProductScreen(item: product),
+    ),
+  );
 }

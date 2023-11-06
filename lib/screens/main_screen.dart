@@ -14,7 +14,7 @@ class MainPage extends StatelessWidget {
       return MaterialApp(
         home: Scaffold(
             backgroundColor:
-                Theme.of(context).colorScheme.onSurface, //TODO: FIX COLORS
+                Theme.of(context).colorScheme.onBackground, //TODO: FIX COLORS
             body: Column(children: [
               //TODO: ADD SEARCH WIDGET
 
