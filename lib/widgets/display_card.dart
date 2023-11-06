@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:user_manuals_app/data/dummy_data.dart';
+import 'package:user_manuals_app/model/category.dart';
+import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/screens/product_screen.dart';
+import 'package:user_manuals_app/screens/products.dart';
 
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
@@ -26,6 +30,10 @@ class DisplayCard extends StatelessWidget {
             if (item is Product) {
               // Navigate to the product page
               _selectProduct(context, item);
+            } else if (item is Manufacture) {
+              _selectManufacturer(context, item);
+            } else if (item is Category) {
+              _selectCategory(context, item);
             }
           },
           child: Stack(
@@ -77,6 +85,34 @@ void _selectProduct(BuildContext context, Product product) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (ctx) => ProductScreen(item: product),
+    ),
+  );
+}
+
+void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
+  List<Product> filteredProducts = availableProducts
+      .where((product) =>
+          product.manufactures.isNotEmpty &&
+          product.manufactures[0].toString() == manufacturer.id.toString())
+      .toList();
+
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (ctx) => ProductsScreen(products: filteredProducts),
+    ),
+  );
+}
+
+void _selectCategory(BuildContext context, Category category) {
+  List<Product> filteredProducts = availableProducts
+      .where((product) =>
+          product.categories.isNotEmpty &&
+          product.categories[0].toString() == category.id.toString())
+      .toList();
+
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (ctx) => ProductsScreen(products: filteredProducts),
     ),
   );
 }
