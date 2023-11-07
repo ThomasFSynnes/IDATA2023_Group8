@@ -16,48 +16,80 @@ class ProductScreen extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         title: Text(item.title),
       ),
-      body: SingleChildScrollView(
-        child: Column(children: [
-          const SizedBox(
-            height: 40,
-          ),
-          Row(children: [
-            Expanded(
-              child: Image.asset(
-                item.imageUrl,
-                fit: BoxFit.cover,
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              height: 300, // Set your desired height here
+              child: ClipRect(
+                child: Image.asset(
+                  item.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ]),
-          const SizedBox(
-            height: 40,
           ),
-          Text(
-            item.title,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Column(children: [
-            TextButton.icon(
-              onPressed: () {
-                // TODO: IMPLEMENT FAVOURITES
-              },
-              icon: Icon(Icons.add),
-              label: Text('Add to selection',
-                  style: Theme.of(context).textTheme.titleMedium),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              color: const Color(0xFFABD1C6),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      item.title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextButton.icon(
+                            onPressed: () {
+                              // TODO: IMPLEMENT FAVORITES
+                            },
+                            icon: Icon(
+                              Icons.add,
+                              color: Color(0xFF001E1D),
+                            ),
+                            label: Text(
+                              'Add to selection',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              // TODO: IMPLEMENT DOWNLOAD
+                            },
+                            icon: Icon(
+                              Icons.download,
+                              color: Color(0xFF001E1D),
+                            ),
+                            label: Text(
+                              'Download User Manual',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            TextButton.icon(
-              onPressed: () {
-                // TODO: IMPLEMENT DOWNLOAD
-              },
-              icon: Icon(Icons.download),
-              label: Text('Download User Manual',
-                  style: Theme.of(context).textTheme.titleMedium),
-            ),
-          ]),
-        ]),
+          ),
+        ],
       ),
     );
   }
