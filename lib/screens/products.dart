@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:user_manuals_app/widgets/grid_list.dart';
 
 class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({super.key, required this.products});
+  const ProductsScreen(
+      {super.key,
+      required this.products,
+      required this.pageTitle,
+      required this.image});
 
   final List products;
+  final String pageTitle;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +35,14 @@ class ProductsScreen extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          const Text(
-            "TEXT HERE SHOULD BE CATEGORY OR MANUFACTURER",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              Container(height: 70, width: 70, child: Image.asset(image)),
+              Text(
+                pageTitle,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
           ),
           Expanded(
             child: GridList(list: products),

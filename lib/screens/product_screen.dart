@@ -12,8 +12,8 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
         title: Text(item.title),
       ),
       body: SingleChildScrollView(
@@ -45,14 +45,16 @@ class ProductScreen extends StatelessWidget {
                 // TODO: IMPLEMENT FAVOURITES
               },
               icon: Icon(Icons.add),
-              label: Text('Add to selection'),
+              label: Text('Add to selection',
+                  style: Theme.of(context).textTheme.titleMedium),
             ),
             TextButton.icon(
               onPressed: () {
                 // TODO: IMPLEMENT DOWNLOAD
               },
               icon: Icon(Icons.download),
-              label: Text('Download User Manual'),
+              label: Text('Download User Manual',
+                  style: Theme.of(context).textTheme.titleMedium),
             ),
           ]),
         ]),

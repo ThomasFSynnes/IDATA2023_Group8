@@ -98,7 +98,11 @@ void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
 
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: (ctx) => ProductsScreen(products: filteredProducts),
+      builder: (ctx) => ProductsScreen(
+        products: filteredProducts,
+        pageTitle: manufacturer.title,
+        image: manufacturer.imageUrl,
+      ),
     ),
   );
 }
@@ -112,7 +116,11 @@ void _selectCategory(BuildContext context, Category category) {
 
   Navigator.of(context).push(
     MaterialPageRoute(
-      builder: (ctx) => ProductsScreen(products: filteredProducts),
+      builder: (ctx) => ProductsScreen(
+        products: filteredProducts,
+        pageTitle: category.title,
+        image: category.imageUrl,
+      ),
     ),
   );
 }
