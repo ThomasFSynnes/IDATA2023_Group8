@@ -40,7 +40,9 @@ class DisplayCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
+
                   color: Colors.white,
+
                   image: DecorationImage(
                     image: AssetImage(item.imageUrl),
                     fit: BoxFit

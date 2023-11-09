@@ -27,7 +27,9 @@ class ProductsScreen extends StatelessWidget {
     }
 
     return Scaffold(
+
       backgroundColor: Theme.of(context).colorScheme.onSecondary,
+
       appBar: AppBar(
         title: const Text('Products Screen'),
       ),

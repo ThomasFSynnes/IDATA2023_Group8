@@ -1,3 +1,4 @@
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/dummy_data.dart';
@@ -94,6 +95,6 @@ class MainPage extends StatelessWidget {
         //Todo: Bug, app crashes when opening drawer by swiping.
         drawer: const SideDrawer(),
       );
-    });
+    },);
   }
 }
