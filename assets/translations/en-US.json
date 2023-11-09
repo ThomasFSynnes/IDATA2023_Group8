@@ -1,0 +1,17 @@
+{
+    "test":"test",
+    "Products":"Products",
+    "Manufacturers":"Manufacturers",
+    "Categories":"Categories",
+    "See More":"See More",
+    "sideDrawer":{
+        "text":{
+            "Localization":"Languages"
+        },
+        "buttons":{
+            "login":"Login",
+            "logout":"Logout",
+            "addManual":"Add Manual"
+        }
+    }
+}

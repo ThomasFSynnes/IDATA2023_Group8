@@ -1,0 +1,17 @@
+{
+    "test":"prøve",
+    "Products":"Produkter",
+    "Manufacturers":"Produsenter",
+    "Categories":"Kategorier",
+    "See More":"Se mer",
+    "sideDrawer":{
+        "text":{
+            "Localization":"Språk"
+        },
+        "buttons":{
+            "login":"Login",
+            "logout":"Logout",
+            "addManual":"Laste opp manual"
+        }
+    }
+}

@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^2.4.5
   riverpod: ^2.4.5
+  easy_localization: ^3.0.3
+
+  
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +26,4 @@ flutter:
     - assets/categories/
     - assets/manufacture/
     - assets/products/
+    - assets/translations/

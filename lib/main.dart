@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:user_manuals_app/screens/main_screen.dart';
 
 final theme = ThemeData(
@@ -31,10 +32,22 @@ final theme = ThemeData(
   ),
 );
 
-void main() {
+void main() async {
+  //used for localization 
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
   runApp(
-    const ProviderScope(
-      child: App(),
+    EasyLocalization(
+      supportedLocales: const [
+        Locale("en","US"),
+        Locale("no", "NO"),
+      ],
+      path: "assets/translations",
+      fallbackLocale: const Locale("en", "US"),
+      child: const ProviderScope(
+        child: App(),
+      ),
     ),
   );
 }
@@ -45,6 +58,9 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: theme,
       home: const MainPage(),
     );
