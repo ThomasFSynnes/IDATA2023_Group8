@@ -13,11 +13,11 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       final products = ref.read(productProvider);
-      return MaterialApp(
-        home: Scaffold(
-          backgroundColor:
-              Theme.of(context).colorScheme.onSecondary, //TODO: FIX COLORS
-          body: Column(children: [
+      return Scaffold(
+        backgroundColor:
+            Theme.of(context).colorScheme.onSecondary, //TODO: FIX COLORS
+        body: SingleChildScrollView(
+          child: Column(children: [
             const SizedBox(
               height: 50, //TODO: ADD SEARCH WIDGET
             ),
@@ -89,10 +89,10 @@ class MainPage extends StatelessWidget {
             ),
             const HorizontalList(list: availableCategories)
           ]),
-          appBar: AppBar(),
-          //Todo: Bug, app crashes when opening drawer by swiping.
-          drawer: const SideDrawer(),
         ),
+        appBar: AppBar(),
+        //Todo: Bug, app crashes when opening drawer by swiping.
+        drawer: const SideDrawer(),
       );
     });
   }
