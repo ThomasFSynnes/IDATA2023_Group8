@@ -6,3 +6,16 @@ class Manufacture {
   final String title;
   final String imageUrl;
 }
+
+enum Manufacturers {
+  Apple,
+  Acer,
+  Samsung,
+  Rode,
+  Dell,
+  Sony,
+  Lenovo,
+  LG,
+  HP,
+  Others
+}

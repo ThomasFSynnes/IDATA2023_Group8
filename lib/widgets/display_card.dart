@@ -40,9 +40,7 @@ class DisplayCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-
                   color: Colors.white,
-
                   image: DecorationImage(
                     image: AssetImage(item.imageUrl),
                     fit: BoxFit
@@ -93,10 +91,8 @@ void _selectProduct(BuildContext context, Product product) {
 }
 
 void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
-  List<Product> filteredProducts = availableProducts
-      .where((product) =>
-          product.manufactures.isNotEmpty &&
-          product.manufactures[0].toString() == manufacturer.id.toString())
+  List<Product> filteredProducts = products
+      .where((product) => product.manufacture.id == manufacturer.id.toString())
       .toList();
 
   Navigator.of(context).push(
@@ -111,10 +107,8 @@ void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
 }
 
 void _selectCategory(BuildContext context, Category category) {
-  List<Product> filteredProducts = availableProducts
-      .where((product) =>
-          product.categories.isNotEmpty &&
-          product.categories[0].toString() == category.id.toString())
+  List<Product> filteredProducts = products
+      .where((product) => product.category.id == category.id.toString())
       .toList();
 
   Navigator.of(context).push(
