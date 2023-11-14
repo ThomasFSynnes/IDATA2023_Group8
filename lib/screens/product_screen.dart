@@ -26,7 +26,7 @@ class ProductScreen extends StatelessWidget {
               width: double.infinity,
               height: 300, // Set your desired height here
               child: ClipRect(
-                child: Image.asset(
+                child: Image.network(
                   item.imageUrl,
                   fit: BoxFit.cover,
                 ),

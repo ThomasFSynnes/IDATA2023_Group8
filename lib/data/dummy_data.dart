@@ -10,23 +10,27 @@ var products = [
       category: categories[Categories.SmartPhones]!,
       manufacture: manufactures[Manufacturers.Apple]!,
       title: 'IPhone 14',
-      imageUrl: 'assets/products/iphone14.png'),
+      imageUrl: 'assets/products/iphone14.png',
+      pdfUrl: ""),
   Product(
       id: 'p2',
       category: categories[Categories.SmartPhones]!,
       manufacture: manufactures[Manufacturers.Samsung]!,
       title: 'Samsung Galaxy 22',
-      imageUrl: 'assets/products/SamsungGalaxy22.png'),
+      imageUrl: 'assets/products/SamsungGalaxy22.png',
+      pdfUrl: ""),
   Product(
       id: 'p3',
       category: categories[Categories.Laptops]!,
       manufacture: manufactures[Manufacturers.Acer]!,
       title: 'Acer Aspire 3',
-      imageUrl: 'assets/products/aceraspire3.png'),
+      imageUrl: 'assets/products/aceraspire3.png',
+      pdfUrl: ""),
   Product(
       id: 'p4',
       category: categories[Categories.Tablets]!,
       manufacture: manufactures[Manufacturers.Apple]!,
       title: 'IPad',
-      imageUrl: 'assets/products/ipad.png')
+      imageUrl: 'assets/products/ipad.png',
+      pdfUrl: "")
 ];

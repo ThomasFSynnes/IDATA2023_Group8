@@ -8,6 +8,7 @@ class Product {
     required this.manufacture,
     required this.title,
     required this.imageUrl,
+    required this.pdfUrl,
     this.modelNumber,
     this.releaseYear,
   });
@@ -19,4 +20,5 @@ class Product {
   final String imageUrl;
   final String? releaseYear;
   final String? modelNumber;
+  final String pdfUrl;
 }

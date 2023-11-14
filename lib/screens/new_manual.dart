@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/manufacturers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/data/categories.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 
 class NewManual extends StatefulWidget {
@@ -25,7 +25,8 @@ class _NewManualState extends State<NewManual> {
   var _selectedCategory = categories[Categories.Others]!;
   String? _enteredreleaseYear = '';
   String? _enteredmodelNumber = '';
-  File? _imageFile; // Variable to store the image file
+  File? _imageFile;
+  File? _pdfFile;
 
   // Function to handle image pick from gallery
   Future<void> _pickImage() async {
@@ -39,11 +40,25 @@ class _NewManualState extends State<NewManual> {
     }
   }
 
+  Future<void> _pickPDF() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      setState(() {
+        _pdfFile = File(result.files.single.path!);
+      });
+    }
+  }
+
   void _saveItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
       String imagePath = await _uploadImage();
+      String pdfPath = await _uploadFile(_pdfFile);
 
       if (!context.mounted) {
         return;
@@ -56,6 +71,7 @@ class _NewManualState extends State<NewManual> {
           category: _selectedCategory,
           manufacture: _selectedManufactures,
           imageUrl: imagePath,
+          pdfUrl: pdfPath,
           modelNumber: _enteredmodelNumber,
           releaseYear: _enteredreleaseYear,
         ),
@@ -82,6 +98,20 @@ class _NewManualState extends State<NewManual> {
     }
   }
 
+  Future<String> _uploadFile(File? file) async {
+    if (file == null) {
+      return ''; // Return an empty string or handle accordingly if no file is selected
+    }
+
+    final Reference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('files/${DateTime.now().toString()}');
+
+    await storageReference.putFile(file);
+
+    return await storageReference.getDownloadURL();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,173 +124,205 @@ class _NewManualState extends State<NewManual> {
           color: Theme.of(context).colorScheme.onPrimary,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onBackground),
-                maxLength: 50,
-                decoration: InputDecoration(
-                  label: Text(
-                    'Product Name',
-                    style: TextStyle(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onBackground),
+                  maxLength: 50,
+                  decoration: InputDecoration(
+                    label: Text(
+                      'Product Name',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onBackground),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        value.trim().length <= 1 ||
+                        value.trim().length > 50) {
+                      return 'Must be between 1 and 50 characters.';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _enteredName = value!;
+                  },
+                ), // instead of TextField()
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: DropdownButtonFormField(
+                        iconEnabledColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        dropdownColor:
+                            Theme.of(context).colorScheme.onPrimaryContainer,
+                        value: _selectedCategory,
+                        items: [
+                          for (final category in categories.entries)
+                            DropdownMenuItem(
+                              value: category.value,
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 6),
+                                  Text(category.value.title),
+                                ],
+                              ),
+                            ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedCategory = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: DropdownButtonFormField(
+                        iconEnabledColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        dropdownColor:
+                            Theme.of(context).colorScheme.onPrimaryContainer,
+                        value: _selectedManufactures,
+                        items: [
+                          for (final manufacture in manufactures.entries)
+                            DropdownMenuItem(
+                              value: manufacture.value,
+                              child: Row(
+                                children: [
+                                  const SizedBox(width: 6),
+                                  Text(manufacture.value.title),
+                                ],
+                              ),
+                            ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedManufactures = value!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                // Optional Release Year Input
+                TextFormField(
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 4,
+                  decoration: InputDecoration(
+                    label: Text(
+                      'Release Year (Optional)',
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onBackground),
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
                   ),
+                  onSaved: (value) {
+                    _enteredreleaseYear = value;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      value.trim().length <= 1 ||
-                      value.trim().length > 50) {
-                    return 'Must be between 1 and 50 characters.';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _enteredName = value!;
-                },
-              ), // instead of TextField()
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                      iconEnabledColor: Theme.of(context).colorScheme.onPrimary,
-                      dropdownColor:
-                          Theme.of(context).colorScheme.onPrimaryContainer,
-                      value: _selectedCategory,
-                      items: [
-                        for (final category in categories.entries)
-                          DropdownMenuItem(
-                            value: category.value,
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 6),
-                                Text(category.value.title),
-                              ],
-                            ),
-                          ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedCategory = value!;
-                        });
+                // Optional Model Number Input
+                TextFormField(
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+                  decoration: InputDecoration(
+                    label: Text(
+                      'Model Number (Optional)',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
+                    ),
+                  ),
+                  onSaved: (value) {
+                    _enteredmodelNumber = value;
+                  },
+                ),
+                const SizedBox(height: 12),
+
+                ElevatedButton.icon(
+                  onPressed: _pickImage,
+                  icon: Icon(
+                    Icons.image,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+                  label: Text('Pick Image',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary)),
+                ),
+
+                // Show selected image
+                _imageFile != null
+                    ? Image.file(
+                        _imageFile!,
+                        height: 50,
+                        width: 50,
+                      )
+                    : SizedBox(height: 0, width: 0),
+
+                ElevatedButton.icon(
+                  onPressed: _pickPDF,
+                  icon: Icon(
+                    Icons.picture_as_pdf,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                  ),
+                  label: Text('Pick PDF',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary)),
+                ),
+                // Show selected PDF file
+                _pdfFile != null
+                    ? Text(
+                        "PDF Uploaded!",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      )
+                    : const SizedBox(height: 0, width: 0),
+
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _formKey.currentState!.reset();
                       },
+                      child: Text('Reset',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          )),
                     ),
-                  ),
-                  Expanded(
-                    child: DropdownButtonFormField(
-                      iconEnabledColor: Theme.of(context).colorScheme.onPrimary,
-                      dropdownColor:
-                          Theme.of(context).colorScheme.onPrimaryContainer,
-                      value: _selectedManufactures,
-                      items: [
-                        for (final manufacture in manufactures.entries)
-                          DropdownMenuItem(
-                            value: manufacture.value,
-                            child: Row(
-                              children: [
-                                const SizedBox(width: 6),
-                                Text(manufacture.value.title),
-                              ],
-                            ),
-                          ),
-                      ],
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedManufactures = value!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 16),
-              // Optional Release Year Input
-              TextFormField(
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                ),
-                keyboardType: TextInputType.number,
-                maxLength: 4,
-                decoration: InputDecoration(
-                  label: Text(
-                    'Release Year (Optional)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                  ),
-                ),
-                onSaved: (value) {
-                  _enteredreleaseYear = value;
-                },
-              ),
-              // Optional Model Number Input
-              TextFormField(
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onBackground,
-                ),
-                decoration: InputDecoration(
-                  label: Text(
-                    'Model Number (Optional)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onBackground,
-                    ),
-                  ),
-                ),
-                onSaved: (value) {
-                  _enteredmodelNumber = value;
-                },
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton.icon(
-                onPressed: _pickImage,
-                icon: Icon(Icons.image),
-                label: Text('Pick Image'),
-              ),
-              // Show selected image
-              _imageFile != null
-                  ? Image.file(
-                      _imageFile!,
-                      height: 50,
-                      width: 50,
+                    ElevatedButton(
+                      onPressed: _saveItem,
+                      child: Text('Add Item',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          )),
                     )
-                  : SizedBox(height: 0, width: 0),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      _formKey.currentState!.reset();
-                    },
-                    child: Text('Reset',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        )),
-                  ),
-                  ElevatedButton(
-                    onPressed: _saveItem,
-                    child: Text('Add Item',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary,
-                        )),
-                  )
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+//TODO: MAYBE ADD A LOADING SCREEN WHEN UPLOADING
