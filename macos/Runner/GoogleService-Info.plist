@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyALtc_JllW9KnY1Hbbrgo2WLraMc0OcVNI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>630133952828</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.userManualsApp.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>usermanual-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>usermanual-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:630133952828:ios:ed5599bb29139ef2864e39</string>
+	<key>DATABASE_URL</key>
+	<string>https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app</string>
+</dict>
+</plist>

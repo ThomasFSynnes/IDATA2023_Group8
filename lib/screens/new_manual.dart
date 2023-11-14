@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/manufacturers.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/data/categories.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class NewManual extends StatefulWidget {
   const NewManual({super.key});
@@ -19,24 +23,62 @@ class _NewManualState extends State<NewManual> {
   var _enteredName = '';
   var _selectedManufactures = manufactures[Manufacturers.Others]!;
   var _selectedCategory = categories[Categories.Others]!;
-  var _enteredimageUrl = '';
   String? _enteredreleaseYear = '';
   String? _enteredmodelNumber = '';
+  File? _imageFile; // Variable to store the image file
 
-  void _saveItem() {
+  // Function to handle image pick from gallery
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
+
+  void _saveItem() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
+      String imagePath = await _uploadImage();
+
+      if (!context.mounted) {
+        return;
+      }
+
       Navigator.of(context).pop(
         Product(
           id: DateTime.now().toString(),
           title: _enteredName,
           category: _selectedCategory,
           manufacture: _selectedManufactures,
-          imageUrl: _enteredimageUrl,
+          imageUrl: imagePath,
           modelNumber: _enteredmodelNumber,
           releaseYear: _enteredreleaseYear,
         ),
       );
+    }
+  }
+
+  Future<String> _uploadImage() async {
+    try {
+      if (_imageFile == null) {
+        return ''; // Return an empty string or handle accordingly if no image is selected
+      }
+
+      final Reference storageReference = FirebaseStorage.instance
+          .ref()
+          .child('images/${DateTime.now().toString()}');
+
+      await storageReference.putFile(_imageFile!);
+
+      return await storageReference.getDownloadURL();
+    } catch (e) {
+      print('Error uploading image: $e');
+      return ''; // Handle the error gracefully
     }
   }
 
@@ -179,6 +221,20 @@ class _NewManualState extends State<NewManual> {
                   _enteredmodelNumber = value;
                 },
               ),
+              const SizedBox(height: 12),
+              ElevatedButton.icon(
+                onPressed: _pickImage,
+                icon: Icon(Icons.image),
+                label: Text('Pick Image'),
+              ),
+              // Show selected image
+              _imageFile != null
+                  ? Image.file(
+                      _imageFile!,
+                      height: 50,
+                      width: 50,
+                    )
+                  : SizedBox(height: 0, width: 0),
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
