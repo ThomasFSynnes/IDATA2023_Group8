@@ -12,17 +12,25 @@ class Localization extends StatelessWidget {
         onPressed: () {
           context.setLocale(const Locale("en", "US"));
         },
-        child: const Text("English"));
+        child: Text("English", style: Theme.of(context).textTheme.titleMedium));
 
     Widget setLanguageNO = TextButton(
         onPressed: () {
           context.setLocale(const Locale("no", "NO"));
         },
-        child: const Text("Norsk"));
+        child: Text("Norsk", style: Theme.of(context).textTheme.titleMedium));
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.onSecondary,
       appBar: AppBar(
-        title: Text("sideDrawer.text.Localization".tr()),
+        title: Text(
+          "sideDrawer.text.Localization".tr(),
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
       body: Center(
         child: Column(

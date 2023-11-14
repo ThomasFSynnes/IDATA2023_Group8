@@ -10,37 +10,43 @@ final theme = ThemeData(
     seedColor: const Color(0xFF001E1D),
     onBackground: const Color(0xFF001E1D),
     onSecondary: const Color(0xFFABD1C6),
+    onPrimaryContainer: const Color(0xFFE8E4E6),
   ),
   textTheme: const TextTheme(
-    titleMedium: TextStyle(
-      color: Color(0xFF001E1D),
-      fontSize: 15,
-      fontFamily: 'Cabin',
-      fontWeight: FontWeight.w700,
-      height: 0,
-    ),
-    titleLarge: TextStyle(
-      color: Color(0xFF001E1D),
-    ),
-    titleSmall: TextStyle(
-      color: Color(0xFF001E1D),
-      fontSize: 12,
-      fontFamily: 'Cabin',
-      fontWeight: FontWeight.w400,
-      height: 0,
-    ),
-  ),
+      titleMedium: TextStyle(
+        color: Color(0xFF001E1D),
+        fontSize: 15,
+        fontFamily: 'Cabin',
+        fontWeight: FontWeight.w700,
+        height: 0,
+      ),
+      titleLarge: TextStyle(
+        color: Color(0xFF001E1D),
+        fontSize: 17,
+        fontFamily: 'Cabin',
+        fontWeight: FontWeight.w700,
+      ),
+      titleSmall: TextStyle(
+        color: Color(0xFF001E1D),
+        fontSize: 12,
+        fontFamily: 'Cabin',
+        fontWeight: FontWeight.w400,
+        height: 0,
+      ),
+      bodyLarge: TextStyle(
+        color: Color(0xFF001E1D),
+      )),
 );
 
 void main() async {
-  //used for localization 
+  //used for localization
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
   runApp(
     EasyLocalization(
       supportedLocales: const [
-        Locale("en","US"),
+        Locale("en", "US"),
         Locale("no", "NO"),
       ],
       path: "assets/translations",

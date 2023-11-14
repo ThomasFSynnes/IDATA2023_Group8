@@ -13,8 +13,11 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.onSecondary,
-        title: Text(item.title),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        title: Text(item.title, style: Theme.of(context).textTheme.titleLarge),
       ),
       body: Column(
         children: [
@@ -42,10 +45,20 @@ class ProductScreen extends StatelessWidget {
                     ),
                     Text(
                       item.title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      'Model Number: ' +
+                          (item.modelNumber?.toString() ?? 'N/A'),
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    Text(
+                      'Release year: ' +
+                          (item.releaseYear?.toString() ?? 'N/A'),
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(
                       height: 20,
@@ -59,7 +72,7 @@ class ProductScreen extends StatelessWidget {
                             onPressed: () {
                               // TODO: IMPLEMENT FAVORITES
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.add,
                               color: Color(0xFF001E1D),
                             ),
@@ -72,7 +85,7 @@ class ProductScreen extends StatelessWidget {
                             onPressed: () {
                               // TODO: IMPLEMENT DOWNLOAD
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.download,
                               color: Color(0xFF001E1D),
                             ),

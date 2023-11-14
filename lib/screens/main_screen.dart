@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:user_manuals_app/data/dummy_data.dart';
+
 import 'package:user_manuals_app/data/categories.dart';
 import 'package:user_manuals_app/data/manufacturers.dart';
-import 'package:user_manuals_app/model/category.dart';
-import 'package:user_manuals_app/model/manufacture.dart';
+
 import 'package:user_manuals_app/providers/product_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/side_drawer.dart';
 import 'package:user_manuals_app/widgets/horizontal_list.dart';
 
@@ -36,7 +36,15 @@ class MainPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium),
                     TextButton(
                       onPressed: () {
-                        // TODO: See all
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => ProductsScreen(
+                              products: products,
+                              pageTitle: "Products",
+                              image: "",
+                            ),
+                          ),
+                        );
                       },
                       child: Text(
                         'See More'.tr(),
@@ -59,7 +67,15 @@ class MainPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        // TODO: See all
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => ProductsScreen(
+                              products: manufactureObjects,
+                              pageTitle: "Manufacturers",
+                              image: "",
+                            ),
+                          ),
+                        );
                       },
                       child: Text(
                         'See More'.tr(),
@@ -82,7 +98,15 @@ class MainPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        // TODO: See all
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => ProductsScreen(
+                              products: categoryObjects,
+                              pageTitle: "Categories",
+                              image: "",
+                            ),
+                          ),
+                        );
                       },
                       child: Text(
                         'See More'.tr(),
@@ -95,7 +119,12 @@ class MainPage extends StatelessWidget {
               HorizontalList(list: categoryObjects)
             ]),
           ),
-          appBar: AppBar(),
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).colorScheme.onSecondary,
+            iconTheme: IconThemeData(
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
+          ),
           //Todo: Bug, app crashes when opening drawer by swiping.
           drawer: const SideDrawer(),
         );

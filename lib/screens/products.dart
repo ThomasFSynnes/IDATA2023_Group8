@@ -17,21 +17,37 @@ class ProductsScreen extends StatelessWidget {
     if (products.isEmpty) {
       // Handle the case when the products list is empty.
       return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
         appBar: AppBar(
-          title: const Text('Oops..'),
+          title: Text(
+            'Oops..',
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
+          iconTheme: IconThemeData(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
-        body: const Center(
-          child: Text('No products available'),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+                child: Text(
+              'No products available',
+              style: Theme.of(context).textTheme.bodyLarge,
+            )),
+          ],
         ),
       );
     }
 
     return Scaffold(
-
       backgroundColor: Theme.of(context).colorScheme.onSecondary,
-
       appBar: AppBar(
-        title: const Text('Products Screen'),
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
       ),
       body: Column(
         children: [
