@@ -19,6 +19,7 @@ dependencies:
   firebase_auth: ^4.6.0
   image_picker: ^1.0.4
   file_picker: ^6.1.1
+  syncfusion_flutter_pdfviewer: ^23.1.44
 
 
   

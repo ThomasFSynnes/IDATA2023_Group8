@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/widgets/PDFWidget.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({
@@ -8,6 +9,13 @@ class ProductScreen extends StatelessWidget {
   });
 
   final Product item;
+
+  Future<void> _launchPDFViewer(BuildContext context, String pdfUrl) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PDFViewer(url: pdfUrl)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +79,13 @@ class ProductScreen extends StatelessWidget {
                           TextButton.icon(
                             onPressed: () {
                               // TODO: IMPLEMENT FAVORITES
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('NOT IMPLEMENTED YET'),
+                                  duration: Duration(seconds: 5),
+                                ),
+                              );
                             },
                             icon: const Icon(
                               Icons.add,
@@ -83,7 +98,17 @@ class ProductScreen extends StatelessWidget {
                           ),
                           TextButton.icon(
                             onPressed: () {
-                              // TODO: IMPLEMENT DOWNLOAD
+                              if (item.pdfUrl.isNotEmpty) {
+                                // TODO: IMPLEMENT DOWNLOAD
+                                _launchPDFViewer(context, item.pdfUrl);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Oops! PDF URL is empty.'),
+                                    duration: Duration(seconds: 5),
+                                  ),
+                                );
+                              }
                             },
                             icon: const Icon(
                               Icons.download,
