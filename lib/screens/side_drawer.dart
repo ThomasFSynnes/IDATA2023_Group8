@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/dummy_data.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
@@ -64,13 +65,32 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
             ),
             const Spacer(),
-            //Todo: only show if user is logged in
-            MenuButton(
-              navigateTo:
-                  MaterialPageRoute(builder: (ctx) => const LoginScreen()),
-              title: "sideDrawer.buttons.login".tr(),
-              icon: const Icon(Icons.login, color: Colors.black54),
-            ),
+            //Show different button based on login state.  
+            StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  //logout button
+                  return ElevatedButton(
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
+                    child: Row(children: [
+                    Text("sideDrawer.buttons.logout".tr()),
+                    const Icon(Icons.logout, color: Colors.black54),
+                    ]),
+                  );
+                } else {
+                  //login button 
+                  return MenuButton(
+                    navigateTo:
+                        MaterialPageRoute(builder: (ctx) => LoginScreen()),
+                    title: "sideDrawer.buttons.login".tr(),
+                    icon: const Icon(Icons.login, color: Colors.black54),
+                  );
+                }
+              },
+            )
           ],
         ),
       ),
