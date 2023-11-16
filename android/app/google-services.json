@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "841467081683",
-    "project_id": "manualsapp-3a589",
-    "storage_bucket": "manualsapp-3a589.appspot.com"
+    "project_number": "630133952828",
+    "firebase_url": "https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "usermanual-app",
+    "storage_bucket": "usermanual-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:841467081683:android:9f1a256f3007505220f526",
+        "mobilesdk_app_id": "1:630133952828:android:e2359f5446e78479864e39",
         "android_client_info": {
           "package_name": "com.example.user_manuals_app"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCsIIg33yxxN0guV6ik5ofSigUYqaN28oI"
+          "current_key": "AIzaSyD_neZSsqkDO0nYb1CpHw1xOH0ZulsM-gY"
         }
       ],
       "services": {

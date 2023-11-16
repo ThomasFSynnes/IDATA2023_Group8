@@ -93,7 +93,7 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
                 obscureText: true,
                 validator: (value) {
-                  if (value == null || value.trim().length > 6) {
+                  if (value == null || value.trim().length < 6) {
                     return "Pssword length must be 6 or more"; //todo: tr
                   }
                 },
