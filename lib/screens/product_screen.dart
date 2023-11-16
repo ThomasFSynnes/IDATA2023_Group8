@@ -21,7 +21,7 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.background,
         ),
@@ -31,12 +31,17 @@ class ProductScreen extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
+              color: Theme.of(context).colorScheme.onSecondary,
               width: double.infinity,
               height: 300, // Set your desired height here
-              child: ClipRect(
-                child: Image.network(
-                  item.imageUrl,
-                  fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(500.0),
+                  child: Image.network(
+                    item.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
