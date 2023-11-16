@@ -56,7 +56,11 @@ class ProductsScreen extends StatelessWidget {
           ),
           Row(
             children: [
-              Container(height: 70, width: 70, child: Image.asset(image)),
+              if (image.isNotEmpty) ...{
+                Container(height: 70, width: 70, child: Image.asset(image)),
+              } else ...{
+                Container(height: 20, width: 20),
+              },
               Text(
                 pageTitle,
                 style: Theme.of(context).textTheme.titleLarge,
