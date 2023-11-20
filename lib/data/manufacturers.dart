@@ -10,17 +10,17 @@ const manufactures = {
   Manufacturers.Dell: Manufacture(
       id: 'm4', title: 'Dell', imageUrl: 'assets/manufacture/dell.png', type: Manufacturers.Dell),
   Manufacturers.Rode: Manufacture(
-      id: 'm5', title: 'Røde', imageUrl: 'assets/manufacture/rode.png'),
+      id: 'm5', title: 'Røde', imageUrl: 'assets/manufacture/rode.png', type: Manufacturers.Rode),
   Manufacturers.Sony: Manufacture(
-      id: 'm6', title: 'Sony', imageUrl: 'assets/manufacture/sony.png'),
+      id: 'm6', title: 'Sony', imageUrl: 'assets/manufacture/sony.png', type: Manufacturers.Sony),
   Manufacturers.Lenovo: Manufacture(
-      id: 'm7', title: 'Lenovo', imageUrl: 'assets/manufacture/lenovo.png'),
+      id: 'm7', title: 'Lenovo', imageUrl: 'assets/manufacture/lenovo.png', type: Manufacturers.Lenovo),
   Manufacturers.LG:
-      Manufacture(id: 'm8', title: 'LG', imageUrl: 'assets/manufacture/LG.png'),
+      Manufacture(id: 'm8', title: 'LG', imageUrl: 'assets/manufacture/LG.png', type: Manufacturers.LG),
   Manufacturers.HP:
-      Manufacture(id: 'm9', title: 'HP', imageUrl: 'assets/manufacture/hp.png'),
+      Manufacture(id: 'm9', title: 'HP', imageUrl: 'assets/manufacture/hp.png', type: Manufacturers.HP),
   Manufacturers.Others: Manufacture(
-      id: 'm10', title: 'Others', imageUrl: 'assets/manufacture/others.png'),
+      id: 'm10', title: 'Others', imageUrl: 'assets/manufacture/others.png', type: Manufacturers.Others),
 };
 
 List<Manufacturers> manufacturersList = [
