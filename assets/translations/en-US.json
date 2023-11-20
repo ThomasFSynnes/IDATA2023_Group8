@@ -4,12 +4,42 @@
     "Manufacturers":"Manufacturers",
     "Categories":"Categories",
     "See More":"See More",
+    "EmptyList":"No products available",
+    "SignUp":{
+        "emailNotAvailable":"Not a valid E-mail",
+        "password":"Password",
+        "passwordError":"Password length must be 6 or more",
+        "haveAccount": "I already have an account",
+        "createAccount":"Create an account",
+        "login":"Login",
+        "signUp":"Sign Up"
+    },
+    "Product":{
+        "modelNumber": "Model Number: ",
+        "releaseYear": "Release Year: ",
+        "AddToSection": "Add To Section",
+        "DownloadPDF": "Download PDF",
+        "error":"Opps! PDF URL is empty."
+    },
+    "newManual":{
+        "text":{
+            "AddProduct":"Add a new product",
+            "ProductName":"Product Name:",
+            "errorLength":"Must be between 1 and 50 characters.",
+            "releaseYear": "Release Year (Optional)",
+            "modelNumber": "Model Number (Optional)",
+            "pickPicture":"Pick Image",
+            "pickPDF": "Pick PDF",
+            "uplaodedPDF":"PDF Uploaded!",
+            "addItem": "Add Item"
+        }
+    },
     "sideDrawer":{
         "text":{
             "Localization":"Languages"
         },
         "buttons":{
-            "login":"Login",
+            "login":"Sign up/Login",
             "logout":"Logout",
             "addManual":"Add Manual"
         }

@@ -40,7 +40,7 @@ class MainPage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (ctx) => ProductsScreen(
                               products: products,
-                              pageTitle: "Products",
+                              pageTitle: "Products".tr(),
                               image: "",
                             ),
                           ),
@@ -71,7 +71,7 @@ class MainPage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (ctx) => ProductsScreen(
                               products: manufactureObjects,
-                              pageTitle: "Manufacturers",
+                              pageTitle: 'Manufacturers'.tr(),
                               image: "",
                             ),
                           ),
@@ -102,7 +102,7 @@ class MainPage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (ctx) => ProductsScreen(
                               products: categoryObjects,
-                              pageTitle: "Categories",
+                              pageTitle: "Categories".tr(),
                               image: "",
                             ),
                           ),

@@ -8,6 +8,7 @@ import 'package:user_manuals_app/data/categories.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 
 class NewManual extends StatefulWidget {
   const NewManual({super.key});
@@ -94,7 +95,7 @@ class _NewManualState extends State<NewManual> {
       return await storageReference.getDownloadURL();
     } catch (e) {
       print('Error uploading image: $e');
-      return ''; // Handle the error gracefully
+      return '';
     }
   }
 
@@ -117,7 +118,7 @@ class _NewManualState extends State<NewManual> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onSecondary,
       appBar: AppBar(
-        title: Text('Add a new product',
+        title: Text("newManual.text.AddProduct".tr(),
             style: Theme.of(context).textTheme.titleLarge),
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         iconTheme: IconThemeData(
@@ -138,7 +139,7 @@ class _NewManualState extends State<NewManual> {
                   maxLength: 50,
                   decoration: InputDecoration(
                     label: Text(
-                      'Product Name',
+                      "newManual.text.ProductName".tr(),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.onBackground),
@@ -149,7 +150,7 @@ class _NewManualState extends State<NewManual> {
                         value.isEmpty ||
                         value.trim().length <= 1 ||
                         value.trim().length > 50) {
-                      return 'Must be between 1 and 50 characters.';
+                      return "newManual.text.errorLength".tr();
                     }
                     return null;
                   },
@@ -225,7 +226,7 @@ class _NewManualState extends State<NewManual> {
                   maxLength: 4,
                   decoration: InputDecoration(
                     label: Text(
-                      'Release Year (Optional)',
+                      "newManual.text.releaseYear".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onBackground,
@@ -243,7 +244,7 @@ class _NewManualState extends State<NewManual> {
                   ),
                   decoration: InputDecoration(
                     label: Text(
-                      'Model Number (Optional)',
+                      "newManual.text.modelNumber".tr(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onBackground,
@@ -262,7 +263,7 @@ class _NewManualState extends State<NewManual> {
                     Icons.image,
                     color: Theme.of(context).colorScheme.onSecondary,
                   ),
-                  label: Text('Pick Image',
+                  label: Text("newManual.text.pickPicture".tr(),
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onSecondary)),
                 ),
@@ -282,14 +283,14 @@ class _NewManualState extends State<NewManual> {
                     Icons.picture_as_pdf,
                     color: Theme.of(context).colorScheme.onSecondary,
                   ),
-                  label: Text('Pick PDF',
+                  label: Text("newManual.text.pickPDF".tr(),
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onSecondary)),
                 ),
                 // Show selected PDF file
                 _pdfFile != null
                     ? Text(
-                        "PDF Uploaded!",
+                        "newManual.text.uplaodedPDF".tr(),
                         style: Theme.of(context).textTheme.titleMedium,
                       )
                     : const SizedBox(height: 0, width: 0),
@@ -309,7 +310,7 @@ class _NewManualState extends State<NewManual> {
                     ),
                     ElevatedButton(
                       onPressed: _saveItem,
-                      child: Text('Add Item',
+                      child: Text("newManual.text.addItem".tr(),
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.onSecondary,
                           )),

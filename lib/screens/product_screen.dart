@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({
@@ -65,12 +66,12 @@ class ProductScreen extends StatelessWidget {
                       height: 8,
                     ),
                     Text(
-                      'Model Number: ' +
+                      "Product.modelNumber".tr() +
                           (item.modelNumber?.toString() ?? 'N/A'),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Text(
-                      'Release year: ' +
+                      "Product.releaseYear".tr() +
                           (item.releaseYear?.toString() ?? 'N/A'),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
@@ -104,7 +105,7 @@ class ProductScreen extends StatelessWidget {
                               color: Color(0xFF001E1D),
                             ),
                             label: Text(
-                              'Add to selection',
+                              "Product.AddToSection".tr(),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
@@ -115,9 +116,11 @@ class ProductScreen extends StatelessWidget {
                                 _launchPDFViewer(context, item.pdfUrl);
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Oops! PDF URL is empty.'),
-                                    duration: Duration(seconds: 5),
+                                  SnackBar(
+                                    content: Text(
+                                      "Product.error".tr(),
+                                    ),
+                                    duration: const Duration(seconds: 5),
                                   ),
                                 );
                               }
@@ -127,7 +130,7 @@ class ProductScreen extends StatelessWidget {
                               color: Color(0xFF001E1D),
                             ),
                             label: Text(
-                              'Download User Manual',
+                              "Product.DownloadPDF".tr(),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),

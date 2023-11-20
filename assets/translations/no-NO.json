@@ -4,12 +4,42 @@
     "Manufacturers":"Produsenter",
     "Categories":"Kategorier",
     "See More":"Se mer",
+    "SignUp":{
+        "emailNotAvailable":"E-mail er ikke gyldig",
+        "password":"Passord",
+        "passwordError":"Passord må være 6 karakterer eller mer",
+        "haveAccount": "Jeg har en bruker",
+        "createAccount":"Lag en bruker",
+        "login":"Logg inn",
+        "signUp":"Registrer"
+    },
+    "Product":{
+        "modelNumber": "Modellnummer: ",
+        "releaseYear": "Utgivelsesår: ",
+        "AddToSection": "Legg til i Utvalg",
+        "DownloadPDF": "Last ned PDF",
+        "error":"Opps! PDF URL er tom."
+    },
+    "EmptyList":"Ingen produkter tilgjenglig",
+    "newManual":{
+        "text":{
+            "AddProduct":"Legg til nytt produkt",
+            "ProductName":"Produkt Navn:",
+            "errorLength":"Må være mellom 1 og 50 karakterer.",
+            "releaseYear": "Utgivelsesår (valgfritt)",
+            "modelNumber": "Modellnummer (valgfritt)",
+            "pickPicture":"Velg Bilde",
+            "pickPDF": "Velg PDF",
+            "uplaodedPDF":"PDF lastet opp!",
+            "addItem": "Legg til Produkt"
+        }
+    },
     "sideDrawer":{
         "text":{
             "Localization":"Språk"
         },
         "buttons":{
-            "login":"Login",
+            "login":"Registrer/Logg inn",
             "logout":"Logout",
             "addManual":"Laste opp manual"
         }

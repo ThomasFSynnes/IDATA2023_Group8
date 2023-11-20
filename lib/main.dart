@@ -13,6 +13,7 @@ final theme = ThemeData(
     onBackground: const Color(0xFF001E1D),
     onSecondary: const Color(0xFFABD1C6),
     onPrimaryContainer: const Color(0xFFE8E4E6),
+    onSecondaryContainer: const Color(0xffF9BC60),
   ),
   textTheme: const TextTheme(
       titleMedium: TextStyle(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -59,7 +60,9 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.onBackground,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
         title: const Text("Login"),
       ),
       body: Padding(
@@ -68,6 +71,17 @@ class _LoginScreen extends State<LoginScreen> {
           key: _form,
           child: Column(
             children: [
+              const SizedBox(
+                height: 100,
+              ),
+              Text(
+                _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Cabin',
+                ),
+              ),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: "E-mail",
@@ -79,7 +93,7 @@ class _LoginScreen extends State<LoginScreen> {
                   if (value == null ||
                       value.trim().isEmpty ||
                       !value.contains("@")) {
-                    return "Not a valid E-mail"; //todo: tr
+                    return "SignUp.emailNotAvailable".tr();
                   }
                   return null;
                 },
@@ -88,13 +102,13 @@ class _LoginScreen extends State<LoginScreen> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: "Password",
+                decoration: InputDecoration(
+                  labelText: "SignUp.password".tr(),
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.trim().length < 6) {
-                    return "Pssword length must be 6 or more"; //todo: tr
+                    return "SignUp.passwordError".tr(); //todo: tr
                   }
                 },
                 onSaved: (value) {
@@ -105,18 +119,36 @@ class _LoginScreen extends State<LoginScreen> {
                 height: 16,
               ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32)),
+                  backgroundColor:
+                      Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
                 onPressed: submit,
-                child: Text(_isLogin ? 'Login' : 'Signup'),
+                child: Text(
+                  _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ), //todo: tr
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32)),
+                  backgroundColor:
+                      Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
                 onPressed: () {
                   setState(() {
                     _isLogin = !_isLogin;
                   });
                 },
-                child: Text(_isLogin
-                    ? 'Create an account'
-                    : 'I already have an account'),
+                child: Text(
+                  _isLogin
+                      ? "SignUp.createAccount".tr()
+                      : "SignUp.haveAccount".tr(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
               ),
             ],
           ),
