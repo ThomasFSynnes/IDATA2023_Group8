@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -81,6 +82,12 @@ class ProductScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          TextButton.icon(
+                              onPressed: () {
+                                DatabaseManager().addProduct(item);
+                              },
+                              icon: Icon(Icons.upload),
+                              label: Text("Database test")),
                           TextButton.icon(
                             onPressed: () {
                               // TODO: IMPLEMENT FAVORITES

@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:user_manuals_app/data/categories.dart';
+import 'package:user_manuals_app/data/manufacturers.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 
@@ -21,4 +24,38 @@ class Product {
   final String? releaseYear;
   final String? modelNumber;
   final String pdfUrl;
+
+  factory Product.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data();
+    
+    print(data?['category']);
+
+    Categories categoryEnum = Categories.values.firstWhere((e) => e.name == data?['category']);
+    Manufacturers manufacturerEnum = Manufacturers.values.firstWhere((e) => e.name == data?['manufacture']);
+
+    return Product(
+      id : snapshot.id,
+      title: data?['title'],
+      category: categories[categoryEnum]!,
+      manufacture: manufactures[manufacturerEnum]!,
+      imageUrl: data?['imageUrl'],
+      releaseYear: data?['releaseYear'],
+      modelNumber: data?['modelNumber'],
+      pdfUrl: data?['pdfUrl'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    
+    return {
+      "title": title,
+      "category": category.type.name,
+      "manufacture": manufacture.type.name,
+      "imageUrl": imageUrl,
+      "releaseYear": releaseYear,
+      "modelNumber": modelNumber,
+      "pdfUrl": pdfUrl,
+    };
+  }
+
 }

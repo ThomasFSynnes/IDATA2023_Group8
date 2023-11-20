@@ -5,6 +5,7 @@ import 'package:user_manuals_app/data/dummy_data.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 
 import 'package:user_manuals_app/widgets/menu_button.dart';
 
@@ -18,6 +19,8 @@ class SideDrawer extends StatefulWidget {
 }
 
 class _SideDrawerState extends State<SideDrawer> {
+  DatabaseManager database = DatabaseManager();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -45,6 +48,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 if (newProduct != null) {
                   setState(() {
                     products.add(newProduct);
+                    DatabaseManager().addProduct(newProduct);
                   });
                 }
               },
@@ -65,6 +69,7 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
             ),
             const Spacer(),
+            ElevatedButton(onPressed:() async {print(database.getAllProducts());}, child: Text("db Test")),
             //Show different button based on login state.  
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),

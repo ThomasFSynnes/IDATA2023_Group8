@@ -5,7 +5,7 @@ import 'package:user_manuals_app/data/categories.dart';
 import 'package:user_manuals_app/data/manufacturers.dart';
 
 var products = [
-  Product(
+  /* Product(
       id: 'p1',
       category: categories[Categories.SmartPhones]!,
       manufacture: manufactures[Manufacturers.Apple]!,
@@ -25,7 +25,7 @@ var products = [
       manufacture: manufactures[Manufacturers.Acer]!,
       title: 'Acer Aspire 3',
       imageUrl: 'assets/products/aceraspire3.png',
-      pdfUrl: ""),
+      pdfUrl: ""), */
   Product(
       id: 'p4',
       category: categories[Categories.Tablets]!,
