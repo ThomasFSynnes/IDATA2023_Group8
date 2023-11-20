@@ -27,8 +27,9 @@ class _SideDrawerState extends State<SideDrawer> {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
         child: Column(
           children: [
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
             MenuButton(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               navigateTo:
                   MaterialPageRoute(builder: (ctx) => const Localization()),
               title: "sideDrawer.text.Localization".tr(),
@@ -51,7 +52,8 @@ class _SideDrawerState extends State<SideDrawer> {
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32)),
-                primary: Theme.of(context).colorScheme.onPrimaryContainer,
+                backgroundColor:
+                    Theme.of(context).colorScheme.onPrimaryContainer,
               ),
               child: Row(
                 children: [
@@ -65,24 +67,31 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
             ),
             const Spacer(),
-            //Show different button based on login state.  
+            //Show different button based on login state.
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   //logout button
                   return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.error),
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
                     },
                     child: Row(children: [
-                    Text("sideDrawer.buttons.logout".tr()),
-                    const Icon(Icons.logout, color: Colors.black54),
+                      const Icon(Icons.logout, color: Colors.black54),
+                      const SizedBox(width: 8),
+                      Text(
+                        "sideDrawer.buttons.logout".tr(),
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ]),
                   );
                 } else {
-                  //login button 
+                  //login button
                   return MenuButton(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                     navigateTo:
                         MaterialPageRoute(builder: (ctx) => LoginScreen()),
                     title: "sideDrawer.buttons.login".tr(),

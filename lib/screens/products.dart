@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/widgets/grid_list.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen(
@@ -33,7 +34,7 @@ class ProductsScreen extends StatelessWidget {
           children: [
             Center(
                 child: Text(
-              'No products available',
+              'EmptyList'.tr(),
               style: Theme.of(context).textTheme.bodyLarge,
             )),
           ],
