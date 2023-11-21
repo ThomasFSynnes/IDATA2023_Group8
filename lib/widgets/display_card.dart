@@ -5,6 +5,7 @@ import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/screens/product_screen.dart';
 import 'package:user_manuals_app/screens/products.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
@@ -106,11 +107,11 @@ void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
   );
 }
 
-void _selectCategory(BuildContext context, Category category) {
-  List<Product> filteredProducts = products
+void _selectCategory(BuildContext context, Category category) async {
+  /* List<Product> filteredProducts = products
       .where((product) => product.category.id == category.id.toString())
-      .toList();
-
+      .toList(); */
+  List<Product> filteredProducts = await DatabaseManager().getProductsByCategory(category.type);
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (ctx) => ProductsScreen(
