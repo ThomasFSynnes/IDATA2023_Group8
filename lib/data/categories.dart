@@ -1,45 +1,69 @@
 import 'package:user_manuals_app/model/category.dart';
 
 const categories = {
-  Categories.SmartPhones: Category(
-      id: 'c1', title: 'Smart Phones', imageUrl: 'assets/categories/phone.png', type:Categories.SmartPhones),
-  Categories.Laptops: Category(
-      id: 'c2', title: 'Laptops', imageUrl: 'assets/categories/laptop.png', type:Categories.Laptops),
-  Categories.Speakers: Category(
-      id: 'c3', title: 'Speakers', imageUrl: 'assets/categories/speaker.png',type:Categories.Speakers),
-  Categories.Fridge: Category(
-      id: 'c4', title: 'Fridges', imageUrl: 'assets/categories/fridge.png',type:Categories.Fridge),
-  Categories.Microphone: Category(
+  Categories.smartPhones: Category(
+      id: 'c1',
+      title: 'Smart Phones',
+      imageUrl: 'assets/categories/phone.png',
+      type: Categories.smartPhones),
+  Categories.laptops: Category(
+      id: 'c2',
+      title: 'Laptops',
+      imageUrl: 'assets/categories/laptop.png',
+      type: Categories.laptops),
+  Categories.speakers: Category(
+      id: 'c3',
+      title: 'Speakers',
+      imageUrl: 'assets/categories/speaker.png',
+      type: Categories.speakers),
+  Categories.fridge: Category(
+      id: 'c4',
+      title: 'Fridges',
+      imageUrl: 'assets/categories/fridge.png',
+      type: Categories.fridge),
+  Categories.microphone: Category(
       id: 'c5',
       title: 'Microphones',
-      imageUrl: 'assets/categories/microphone.png',type:Categories.Microphone),
-  Categories.Tablets: Category(
-      id: 'c6', title: 'Tablets', imageUrl: 'assets/categories/tablet.png',type:Categories.Tablets),
-  Categories.SmartWatch: Category(
+      imageUrl: 'assets/categories/microphone.png',
+      type: Categories.microphone),
+  Categories.tablets: Category(
+      id: 'c6',
+      title: 'Tablets',
+      imageUrl: 'assets/categories/tablet.png',
+      type: Categories.tablets),
+  Categories.smartWatch: Category(
       id: 'c7',
       title: 'Smart Watch',
-      imageUrl: 'assets/categories/smartwatch.png',type:Categories.SmartWatch),
-  Categories.Monitors: Category(
-      id: 'c8', title: 'Monitors', imageUrl: 'assets/categories/monitor.png',type:Categories.Monitors),
-  Categories.Microwave: Category(
+      imageUrl: 'assets/categories/smartwatch.png',
+      type: Categories.smartWatch),
+  Categories.monitors: Category(
+      id: 'c8',
+      title: 'Monitors',
+      imageUrl: 'assets/categories/monitor.png',
+      type: Categories.monitors),
+  Categories.microwave: Category(
       id: 'c9',
       title: 'Microwave',
-      imageUrl: 'assets/categories/microwave.png',type:Categories.Microwave),
-  Categories.Others: Category(
-      id: 'c10', title: 'Others', imageUrl: 'assets/categories/others.png',type:Categories.Others),
+      imageUrl: 'assets/categories/microwave.png',
+      type: Categories.microwave),
+  Categories.others: Category(
+      id: 'c10',
+      title: 'Others',
+      imageUrl: 'assets/categories/others.png',
+      type: Categories.others),
 };
 
 List<Categories> categoriesList = [
-  Categories.Fridge,
-  Categories.Laptops,
-  Categories.Microphone,
-  Categories.Microwave,
-  Categories.Monitors,
-  Categories.SmartPhones,
-  Categories.SmartWatch,
-  Categories.Speakers,
-  Categories.Tablets,
-  Categories.Others
+  Categories.fridge,
+  Categories.laptops,
+  Categories.microphone,
+  Categories.microwave,
+  Categories.monitors,
+  Categories.smartPhones,
+  Categories.smartWatch,
+  Categories.speakers,
+  Categories.tablets,
+  Categories.others
   // Add other Manufacturers values as needed
 ];
 

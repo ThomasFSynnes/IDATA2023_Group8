@@ -39,16 +39,29 @@ class DisplayCard extends StatelessWidget {
           },
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    image: AssetImage(item.imageUrl),
-                    fit: BoxFit
-                        .cover, // Make the image cover all available space
+              if (item is Product) ...{
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                      image: NetworkImage(item.imageUrl),
+                      fit: BoxFit
+                          .cover, // Make the image cover all available space
+                    ),
                   ),
                 ),
-              ),
+              } else ...{
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    image: DecorationImage(
+                      image: AssetImage(item.imageUrl),
+                      fit: BoxFit
+                          .cover, // Make the image cover all available space
+                    ),
+                  ),
+                ),
+              },
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -111,7 +124,8 @@ void _selectCategory(BuildContext context, Category category) async {
   /* List<Product> filteredProducts = products
       .where((product) => product.category.id == category.id.toString())
       .toList(); */
-  List<Product> filteredProducts = await DatabaseManager().getProductsByCategory(category.type);
+  List<Product> filteredProducts =
+      await DatabaseManager().getProductsByCategory(category.type);
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (ctx) => ProductsScreen(

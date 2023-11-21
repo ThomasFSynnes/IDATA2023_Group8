@@ -24,7 +24,6 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      //backgroundColor: Theme.of(context).colorScheme.onBackground,
       backgroundColor: Theme.of(context).colorScheme.onBackground,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
@@ -71,8 +70,12 @@ class _SideDrawerState extends State<SideDrawer> {
               ),
             ),
             const Spacer(),
-            ElevatedButton(onPressed:() async {print(database.getAllProducts());}, child: Text("db Test")),
-            //Show different button based on login state.  
+            ElevatedButton(
+                onPressed: () async {
+                  print(database.getAllProducts());
+                },
+                child: const Text("db Test")),
+            //Show different button based on login state.
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -97,8 +100,8 @@ class _SideDrawerState extends State<SideDrawer> {
                   //login button
                   return MenuButton(
                     color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    navigateTo:
-                        MaterialPageRoute(builder: (ctx) => LoginScreen()),
+                    navigateTo: MaterialPageRoute(
+                        builder: (ctx) => const LoginScreen()),
                     title: "sideDrawer.buttons.login".tr(),
                     icon: const Icon(Icons.login, color: Colors.black54),
                   );

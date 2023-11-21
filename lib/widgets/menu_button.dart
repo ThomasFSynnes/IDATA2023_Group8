@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MenuButton extends StatelessWidget {
-  MenuButton(
+  const MenuButton(
       {super.key,
       required this.navigateTo,
       required this.title,

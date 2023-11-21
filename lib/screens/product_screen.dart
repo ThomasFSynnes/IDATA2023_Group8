@@ -1,8 +1,11 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
-import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({
@@ -17,6 +20,63 @@ class ProductScreen extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => PDFViewer(url: pdfUrl)),
     );
+  }
+
+  Future<void> downloadFile(BuildContext context, String url) async {
+    Dio dio = Dio();
+
+    try {
+      // Fetch the file
+      Response response = await dio.get(
+        url,
+        options: Options(
+          responseType: ResponseType.bytes, // Ensure response type is bytes
+        ),
+      );
+
+      // Get the external storage directory (Downloads folder for Android)
+      bool dirDownloadExists = true;
+      var directory;
+      if (Platform.isAndroid) {
+        directory = "/storage/emulated/0/Download";
+
+        dirDownloadExists = await Directory(directory).exists();
+        if (dirDownloadExists) {
+          directory = "/storage/emulated/0/Download";
+        } else {
+          directory = "/storage/emulated/0/Downloads";
+        }
+      } else {
+        directory = await getDownloadsDirectory();
+      }
+      if (directory != null) {
+        // Specify the file path and name where you want to save the file
+        String filePath = '$directory/downloaded_file.pdf';
+        // Write the file to the downloads directory
+        await File(filePath).writeAsBytes(response.data);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('File downloaded to: $filePath'),
+            duration: const Duration(seconds: 5),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Could not access downloads directory.'),
+            duration: Duration(seconds: 5),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Download error: $e'),
+          duration: const Duration(seconds: 5),
+        ),
+      );
+    }
   }
 
   @override
@@ -84,12 +144,6 @@ class ProductScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextButton.icon(
-                              onPressed: () {
-                                DatabaseManager().addProduct(item);
-                              },
-                              icon: Icon(Icons.upload),
-                              label: Text("Database test")),
-                          TextButton.icon(
                             onPressed: () {
                               // TODO: IMPLEMENT FAVORITES
 
@@ -112,8 +166,31 @@ class ProductScreen extends StatelessWidget {
                           TextButton.icon(
                             onPressed: () {
                               if (item.pdfUrl.isNotEmpty) {
-                                // TODO: IMPLEMENT DOWNLOAD
                                 _launchPDFViewer(context, item.pdfUrl);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      "Product.error".tr(),
+                                    ),
+                                    duration: const Duration(seconds: 5),
+                                  ),
+                                );
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.picture_as_pdf,
+                              color: Color(0xFF001E1D),
+                            ),
+                            label: Text(
+                              "Product.OpenPDF".tr(),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              if (item.pdfUrl.isNotEmpty) {
+                                downloadFile(context, item.pdfUrl);
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

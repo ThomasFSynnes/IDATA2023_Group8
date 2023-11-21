@@ -1,47 +1,48 @@
 {
-    "test":"test",
-    "Products":"Products",
-    "Manufacturers":"Manufacturers",
-    "Categories":"Categories",
-    "See More":"See More",
-    "EmptyList":"No products available",
-    "SignUp":{
-        "emailNotAvailable":"Not a valid E-mail",
-        "password":"Password",
-        "passwordError":"Password length must be 6 or more",
+    "test": "test",
+    "Products": "Products",
+    "Manufacturers": "Manufacturers",
+    "Categories": "Categories",
+    "See More": "See More",
+    "EmptyList": "No products available",
+    "SignUp": {
+        "emailNotAvailable": "Not a valid E-mail",
+        "password": "Password",
+        "passwordError": "Password length must be 6 or more",
         "haveAccount": "I already have an account",
-        "createAccount":"Create an account",
-        "login":"Login",
-        "signUp":"Sign Up"
+        "createAccount": "Create an account",
+        "login": "Login",
+        "signUp": "Sign Up"
     },
-    "Product":{
+    "Product": {
         "modelNumber": "Model Number: ",
         "releaseYear": "Release Year: ",
         "AddToSection": "Add To Section",
         "DownloadPDF": "Download PDF",
-        "error":"Opps! PDF URL is empty."
+        "error": "Opps! PDF URL is empty.",
+        "OpenPDF": "Open PDF"
     },
-    "newManual":{
-        "text":{
-            "AddProduct":"Add a new product",
-            "ProductName":"Product Name:",
-            "errorLength":"Must be between 1 and 50 characters.",
+    "newManual": {
+        "text": {
+            "AddProduct": "Add a new product",
+            "ProductName": "Product Name:",
+            "errorLength": "Must be between 1 and 50 characters.",
             "releaseYear": "Release Year (Optional)",
             "modelNumber": "Model Number (Optional)",
-            "pickPicture":"Pick Image",
+            "pickPicture": "Pick Image",
             "pickPDF": "Pick PDF",
-            "uplaodedPDF":"PDF Uploaded!",
+            "uplaodedPDF": "PDF Uploaded!",
             "addItem": "Add Item"
         }
     },
-    "sideDrawer":{
-        "text":{
-            "Localization":"Languages"
+    "sideDrawer": {
+        "text": {
+            "Localization": "Languages"
         },
-        "buttons":{
-            "login":"Sign up/Login",
-            "logout":"Logout",
-            "addManual":"Add Manual"
+        "buttons": {
+            "login": "Sign up/Login",
+            "logout": "Logout",
+            "addManual": "Add Manual"
         }
     }
 }

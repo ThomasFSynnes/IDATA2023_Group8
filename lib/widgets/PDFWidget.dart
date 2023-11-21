@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:user_manuals_app/model/product.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PDFViewer extends StatelessWidget {
-  PDFViewer({super.key, required this.url});
+  const PDFViewer({super.key, required this.url});
 
   final String url;
 
@@ -17,6 +16,6 @@ class PDFViewer extends StatelessWidget {
           ),
           title: Text("PDF", style: Theme.of(context).textTheme.titleLarge),
         ),
-        body: Container(child: SfPdfViewer.network(url)));
+        body: SfPdfViewer.network(url));
   }
 }

@@ -28,8 +28,8 @@ var products = [
       pdfUrl: ""), */
   Product(
       id: 'p4',
-      category: categories[Categories.Tablets]!,
-      manufacture: manufactures[Manufacturers.Apple]!,
+      category: categories[Categories.tablets]!,
+      manufacture: manufactures[Manufacturers.apple]!,
       title: 'IPad',
       imageUrl: 'assets/products/ipad.png',
       pdfUrl: "")

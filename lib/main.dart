@@ -45,7 +45,7 @@ void main() async {
   //used for localization
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp(/* options: DefaultFirebaseOptions.currentPlatform */);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
     EasyLocalization(

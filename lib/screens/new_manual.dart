@@ -22,8 +22,8 @@ class NewManual extends StatefulWidget {
 class _NewManualState extends State<NewManual> {
   final _formKey = GlobalKey<FormState>();
   var _enteredName = '';
-  var _selectedManufactures = manufactures[Manufacturers.Others]!;
-  var _selectedCategory = categories[Categories.Others]!;
+  var _selectedManufactures = manufactures[Manufacturers.others]!;
+  var _selectedCategory = categories[Categories.others]!;
   String? _enteredreleaseYear = '';
   String? _enteredmodelNumber = '';
   File? _imageFile;
@@ -94,7 +94,7 @@ class _NewManualState extends State<NewManual> {
 
       return await storageReference.getDownloadURL();
     } catch (e) {
-      print('Error uploading image: $e');
+      print('Error uploading image: $e'); //TODO SCAFFOLD MESSAGE
       return '';
     }
   }
@@ -275,7 +275,7 @@ class _NewManualState extends State<NewManual> {
                         height: 50,
                         width: 50,
                       )
-                    : SizedBox(height: 0, width: 0),
+                    : const SizedBox(height: 0, width: 0),
 
                 ElevatedButton.icon(
                   onPressed: _pickPDF,

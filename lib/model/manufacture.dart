@@ -1,6 +1,9 @@
 class Manufacture {
   const Manufacture(
-      {required this.id, required this.title, required this.imageUrl, required this.type});
+      {required this.id,
+      required this.title,
+      required this.imageUrl,
+      required this.type});
 
   final String id;
   final String title;
@@ -9,14 +12,14 @@ class Manufacture {
 }
 
 enum Manufacturers {
-  Apple,
-  Acer,
-  Samsung,
-  Rode,
-  Dell,
-  Sony,
-  Lenovo,
-  LG,
-  HP,
-  Others
+  apple,
+  acer,
+  samsung,
+  rode,
+  dell,
+  sony,
+  lenovo,
+  lg,
+  hp,
+  others
 }

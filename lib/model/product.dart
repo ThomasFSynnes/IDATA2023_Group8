@@ -25,16 +25,17 @@ class Product {
   final String? modelNumber;
   final String pdfUrl;
 
-  factory Product.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+  factory Product.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
     final data = snapshot.data();
-    
-    print(data?['category']);
 
-    Categories categoryEnum = Categories.values.firstWhere((e) => e.name == data?['category']);
-    Manufacturers manufacturerEnum = Manufacturers.values.firstWhere((e) => e.name == data?['manufacture']);
+    Categories categoryEnum =
+        Categories.values.firstWhere((e) => e.name == data?['category']);
+    Manufacturers manufacturerEnum =
+        Manufacturers.values.firstWhere((e) => e.name == data?['manufacture']);
 
     return Product(
-      id : snapshot.id,
+      id: snapshot.id,
       title: data?['title'],
       category: categories[categoryEnum]!,
       manufacture: manufactures[manufacturerEnum]!,
@@ -46,7 +47,6 @@ class Product {
   }
 
   Map<String, dynamic> toFirestore() {
-    
     return {
       "title": title,
       "category": category.type.name,
@@ -57,5 +57,4 @@ class Product {
       "pdfUrl": pdfUrl,
     };
   }
-
 }
