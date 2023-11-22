@@ -224,10 +224,9 @@ class _NewManualState extends State<NewManual> {
                     ),
                   ],
                 ),
-                Text(
-                  "newManual.text.ContactUs".tr(),
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+                Text("newManual.text.ContactUs".tr(),
+                    style: Theme.of(context).textTheme.titleSmall,
+                    textAlign: TextAlign.center),
                 const SizedBox(width: 16),
                 // Optional Release Year Input
                 TextFormField(
