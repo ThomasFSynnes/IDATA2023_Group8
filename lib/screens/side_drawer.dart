@@ -39,39 +39,59 @@ class _SideDrawerState extends State<SideDrawer> {
               title: "sideDrawer.text.Localization".tr(),
               icon: const Icon(Icons.language, color: Colors.black54),
             ),
-            //Add manual button
-            ElevatedButton(
-              onPressed: () async {
-                final newProduct = await Navigator.of(context).push<Product>(
-                  MaterialPageRoute(
-                    builder: (ctx) => const NewManual(),
-                  ),
-                );
+            const SizedBox(height: 16),
+            //Show different button based on login state.
+            StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  //logout button
+                  return ElevatedButton(
+                    onPressed: () async {
+                      final newProduct =
+                          await Navigator.of(context).push<Product>(
+                        MaterialPageRoute(
+                          builder: (ctx) => const NewManual(),
+                        ),
+                      );
 
-                if (newProduct != null) {
-                  setState(() {
-                    products.add(newProduct);
-                    DatabaseManager().addProduct(newProduct);
-                  });
+                      if (newProduct != null) {
+                        setState(() {
+                          products.add(newProduct);
+                          DatabaseManager().addProduct(newProduct);
+                        });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32)),
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.upload_file, color: Colors.black54),
+                        const SizedBox(width: 8),
+                        Text(
+                          "sideDrawer.buttons.addManual".tr(),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  //login button
+                  return Text(
+                    "sideDrawer.buttons.upload".tr(),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                  );
                 }
               },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32)),
-                backgroundColor:
-                    Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.upload_file, color: Colors.black54),
-                  const SizedBox(width: 8),
-                  Text(
-                    "sideDrawer.buttons.addManual".tr(),
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
             ),
+
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

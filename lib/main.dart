@@ -5,6 +5,7 @@ import 'package:user_manuals_app/screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 import 'firebase_options.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
@@ -74,6 +75,7 @@ class App extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: theme,
+      builder: EasyLoading.init(),
       home: const MainPage(),
     );
   }

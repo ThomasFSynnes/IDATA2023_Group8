@@ -32,7 +32,8 @@
             "pickPicture": "Pick Image",
             "pickPDF": "Pick PDF",
             "uplaodedPDF": "PDF Uploaded!",
-            "addItem": "Add Item"
+            "addItem": "Add Item",
+            "ContactUs": "If a Category or Manufacturer is missing please contact us"
         }
     },
     "sideDrawer": {
@@ -42,7 +43,8 @@
         "buttons": {
             "login": "Sign up/Login",
             "logout": "Logout",
-            "addManual": "Add Manual"
-        }
+            "addManual": "Add Manual",
+            "upload":"Login to upload"
+        }    
     }
 }

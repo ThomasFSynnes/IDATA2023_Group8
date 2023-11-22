@@ -21,6 +21,7 @@ class DisplayCard extends StatelessWidget {
       width: 200,
       height: 200,
       child: Card(
+        color: Colors.white,
         margin: const EdgeInsets.all(8),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.circular(8)),
@@ -41,15 +42,30 @@ class DisplayCard extends StatelessWidget {
             children: [
               if (item is Product) ...{
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
-                    image: DecorationImage(
-                      image: NetworkImage(item.imageUrl),
-                      fit: BoxFit
-                          .cover, // Make the image cover all available space
-                    ),
                   ),
-                ),
+                  child: Image.network(
+                    item.imageUrl,
+                    fit: BoxFit
+                        .cover, // Make the image cover all available space
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                                : null,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                )
               } else ...{
                 Container(
                   decoration: BoxDecoration(
@@ -124,6 +140,7 @@ void _selectCategory(BuildContext context, Category category) async {
   /* List<Product> filteredProducts = products
       .where((product) => product.category.id == category.id.toString())
       .toList(); */
+  // To store the ProductNotifier instance
   List<Product> filteredProducts =
       await DatabaseManager().getProductsByCategory(category.type);
   Navigator.of(context).push(

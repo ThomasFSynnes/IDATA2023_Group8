@@ -32,7 +32,8 @@
             "pickPicture": "Velg Bilde",
             "pickPDF": "Velg PDF",
             "uplaodedPDF": "PDF lastet opp!",
-            "addItem": "Legg til Produkt"
+            "addItem": "Legg til Produkt",
+            "ContactUs": "Hvis en kategori eller produsent mangler, vennligst kontakt oss"
         }
     },
     "sideDrawer": {
@@ -42,7 +43,9 @@
         "buttons": {
             "login": "Registrer/Logg inn",
             "logout": "Logout",
-            "addManual": "Laste opp manual"
+            "addManual": "Laste opp manual",
+            "upload":"Logg inn for å laste opp"
         }
+        
     }
 }
