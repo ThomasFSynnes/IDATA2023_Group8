@@ -19,8 +19,7 @@ class MainPage extends StatelessWidget {
       builder: (context, ref, child) {
         final products = ref.read(productProvider);
         return Scaffold(
-          backgroundColor:
-              Theme.of(context).colorScheme.onSecondary, //TODO: FIX COLORS
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
           body: SingleChildScrollView(
             child: Column(children: [
               const SizedBox(

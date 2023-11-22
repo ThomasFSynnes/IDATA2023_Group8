@@ -43,6 +43,7 @@ class _LoginScreen extends State<LoginScreen> {
         );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
+        EasyLoading.dismiss();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.message ?? 'Authentication failed.')),
         );
@@ -80,96 +81,98 @@ class _LoginScreen extends State<LoginScreen> {
         backgroundColor: Theme.of(context).colorScheme.onBackground,
         title: const Text("Login"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _form,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              Text(
-                _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Cabin',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            key: _form,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 100,
                 ),
-              ),
-              TextFormField(
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer),
-                decoration: const InputDecoration(
-                  labelText: "E-mail",
-                ),
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                textCapitalization: TextCapitalization.none,
-                validator: (value) {
-                  if (value == null ||
-                      value.trim().isEmpty ||
-                      !value.contains("@")) {
-                    return "SignUp.emailNotAvailable".tr();
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _userEmail = value!;
-                },
-              ),
-              TextFormField(
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer),
-                decoration: InputDecoration(
-                  labelText: "SignUp.password".tr(),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.trim().length < 6) {
-                    return "SignUp.passwordError".tr(); //todo: tr
-                  }
-                },
-                onSaved: (value) {
-                  _userPassword = value!;
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onSecondaryContainer,
-                ),
-                onPressed: submit,
-                child: Text(
+                Text(
                   _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Cabin',
+                  ),
                 ),
-              ), //todo: tr
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer,
+                TextFormField(
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer),
+                  decoration: const InputDecoration(
+                    labelText: "E-mail",
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  textCapitalization: TextCapitalization.none,
+                  validator: (value) {
+                    if (value == null ||
+                        value.trim().isEmpty ||
+                        !value.contains("@")) {
+                      return "SignUp.emailNotAvailable".tr();
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _userEmail = value!;
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    _isLogin = !_isLogin;
-                  });
-                },
-                child: Text(
-                  _isLogin
-                      ? "SignUp.createAccount".tr()
-                      : "SignUp.haveAccount".tr(),
-                  style: Theme.of(context).textTheme.titleMedium,
+                TextFormField(
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer),
+                  decoration: InputDecoration(
+                    labelText: "SignUp.password".tr(),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.trim().length < 6) {
+                      return "SignUp.passwordError".tr(); //todo: tr
+                    }
+                  },
+                  onSaved: (value) {
+                    _userPassword = value!;
+                  },
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  onPressed: submit,
+                  child: Text(
+                    _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ), //todo: tr
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isLogin = !_isLogin;
+                    });
+                  },
+                  child: Text(
+                    _isLogin
+                        ? "SignUp.createAccount".tr()
+                        : "SignUp.haveAccount".tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

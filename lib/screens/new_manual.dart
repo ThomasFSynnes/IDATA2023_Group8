@@ -100,7 +100,9 @@ class _NewManualState extends State<NewManual> {
 
       return await storageReference.getDownloadURL();
     } catch (e) {
-      print('Error uploading image: $e'); //TODO SCAFFOLD MESSAGE
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error uploading image: $e')),
+      );
       return '';
     }
   }
@@ -221,6 +223,10 @@ class _NewManualState extends State<NewManual> {
                       ),
                     ),
                   ],
+                ),
+                Text(
+                  "newManual.text.ContactUs".tr(),
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const SizedBox(width: 16),
                 // Optional Release Year Input
