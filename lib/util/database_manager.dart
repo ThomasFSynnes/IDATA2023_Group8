@@ -123,6 +123,7 @@ class DatabaseManager {
   }
 
   //Untested workaround. Firebase do not support filter by search.
+  //Untested workaround. Firebase do not support filter by search.
   findProductsByTitle(String searchText) {
     return database
         .collection(keyProducts)

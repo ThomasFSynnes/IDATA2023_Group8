@@ -2,8 +2,8 @@ import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/data/categories.dart';
 import 'package:user_manuals_app/data/manufacturers.dart';
 
-var products = [
-  Product(
+List<Product> products = [
+/*   Product(
       id: 'p4',
       category: categories[Categories.tablets]!,
       manufacture: manufactures[Manufacturers.apple]!,
@@ -13,5 +13,5 @@ var products = [
       pdfUrl:
           "https://firebasestorage.googleapis.com/v0/b/usermanual-app.appspot.com/o/files%2F2023-11-22%2019%3A24%3A28.414463?alt=media&token=0a71d8a6-d909-4ff4-be01-f6d7b11cabaf",
       modelNumber: "A1876",
-      releaseYear: "2018"),
+      releaseYear: "2018"), */
 ];
