@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -21,9 +22,13 @@ class _LoginScreen extends State<LoginScreen> {
   var _userPassword = "";
 
   void submit() async {
+    EasyLoading.show(status: 'loading...');
     final isValid = _form.currentState!.validate();
 
-    if (!isValid) return;
+    if (!isValid) {
+      EasyLoading.dismiss();
+      return;
+    }
 
     _form.currentState!.save();
 
@@ -31,6 +36,11 @@ class _LoginScreen extends State<LoginScreen> {
       try {
         final userCredential = await _firebase.signInWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
+        EasyLoading.dismiss();
+        EasyLoading.showSuccess(
+          'Success!',
+          duration: const Duration(milliseconds: 300),
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -41,12 +51,18 @@ class _LoginScreen extends State<LoginScreen> {
       try {
         final userCredential = await _firebase.createUserWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
+        EasyLoading.dismiss();
+        EasyLoading.showSuccess(
+          'Success!',
+          duration: const Duration(milliseconds: 300),
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         ScaffoldMessenger.of(context).clearSnackBars();
         // Todo: error handeling.
         if (error.code == "") {
         } else {
+          EasyLoading.dismiss();
           // Display error to user
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(error.message ?? 'Authentication failed.')),
@@ -82,6 +98,8 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
               ),
               TextFormField(
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
                 decoration: const InputDecoration(
                   labelText: "E-mail",
                 ),
@@ -101,6 +119,8 @@ class _LoginScreen extends State<LoginScreen> {
                 },
               ),
               TextFormField(
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
                 decoration: InputDecoration(
                   labelText: "SignUp.password".tr(),
                 ),

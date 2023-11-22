@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class NewManual extends StatefulWidget {
   const NewManual({super.key});
@@ -31,6 +32,7 @@ class _NewManualState extends State<NewManual> {
 
   // Function to handle image pick from gallery
   Future<void> _pickImage() async {
+    EasyLoading.dismiss();
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
@@ -42,6 +44,7 @@ class _NewManualState extends State<NewManual> {
   }
 
   Future<void> _pickPDF() async {
+    EasyLoading.dismiss();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -55,6 +58,7 @@ class _NewManualState extends State<NewManual> {
   }
 
   void _saveItem() async {
+    EasyLoading.show(status: 'loading...');
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
@@ -62,9 +66,10 @@ class _NewManualState extends State<NewManual> {
       String pdfPath = await _uploadFile(_pdfFile);
 
       if (!context.mounted) {
+        EasyLoading.dismiss();
         return;
       }
-
+      EasyLoading.dismiss();
       Navigator.of(context).pop(
         Product(
           id: DateTime.now().toString(),
@@ -78,6 +83,7 @@ class _NewManualState extends State<NewManual> {
         ),
       );
     }
+    EasyLoading.dismiss();
   }
 
   Future<String> _uploadImage() async {
