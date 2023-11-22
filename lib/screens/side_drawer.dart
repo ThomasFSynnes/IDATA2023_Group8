@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:user_manuals_app/data/dummy_data.dart';
+import 'package:user_manuals_app/data/products.dart';
+import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
+import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
@@ -37,6 +39,7 @@ class _SideDrawerState extends State<SideDrawer> {
               title: "sideDrawer.text.Localization".tr(),
               icon: const Icon(Icons.language, color: Colors.black54),
             ),
+            //Add manual button
             ElevatedButton(
               onPressed: () async {
                 final newProduct = await Navigator.of(context).push<Product>(
@@ -69,13 +72,39 @@ class _SideDrawerState extends State<SideDrawer> {
                 ],
               ),
             ),
-            const Spacer(),
             ElevatedButton(
-                onPressed: () async {
-                  print(database.getAllProducts());
-                },
-                child: const Text("db Test")),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32)),
+                backgroundColor:
+                    Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+              onPressed: () async {
+                await DatabaseManager().syncFavorites();
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => ProductsScreen(
+                      products: favorits,
+                      pageTitle: "Favorites".tr(),
+                      image: "",
+                    ),
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.black54),
+                  const SizedBox(width: 8),
+                  Text(
+                    "Favorites".tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+            ),
+            //child: const Text("db Test")),
             //Show different button based on login state.
+            const Spacer(),
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -86,6 +115,7 @@ class _SideDrawerState extends State<SideDrawer> {
                         backgroundColor: Theme.of(context).colorScheme.error),
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
+                      favorits.clear();
                     },
                     child: Row(children: [
                       const Icon(Icons.logout, color: Colors.black54),

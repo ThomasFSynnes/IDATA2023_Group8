@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -22,6 +23,7 @@ class _LoginScreen extends State<LoginScreen> {
 
   void submit() async {
     final isValid = _form.currentState!.validate();
+    DatabaseManager db = DatabaseManager();
 
     if (!isValid) return;
 
@@ -41,6 +43,7 @@ class _LoginScreen extends State<LoginScreen> {
       try {
         final userCredential = await _firebase.createUserWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
+        db.createFavorites();
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         ScaffoldMessenger.of(context).clearSnackBars();

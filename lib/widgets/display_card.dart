@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_manuals_app/data/dummy_data.dart';
+import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
