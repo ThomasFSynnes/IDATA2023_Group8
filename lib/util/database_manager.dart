@@ -13,7 +13,6 @@ class DatabaseManager {
   final keyUserFavorites = "usersFavorites";
   final keyProducts = "products";
 
-
   //Adds a product to database
   addProduct(Product product) {
     database.collection(keyProducts).doc().set(product.toFirestore());
@@ -56,16 +55,23 @@ class DatabaseManager {
     database.collection(keyUserFavorites).doc(user.uid).update(addThis);
   }
 
-  //get all favorites from for a given user. 
+  //get all favorites from for a given user.
   Future<List<Product>> syncFavorites() async {
     if (FirebaseAuth.instance.currentUser == null) return [];
+    User user = FirebaseAuth.instance.currentUser!;
 
     await database
         .collection(keyUserFavorites)
+        .doc(user.uid)
         .get()
-        .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-          _fromQuerySnapshotToFavorites(querySnapshot);
-        });
+        .then((DocumentSnapshot documentSnapshot) {
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
+      List test = List.from(data["favoritesIdList"]);
+      favorits = products
+          .where((Product product) => test.contains(product.id))
+          .toList();
+    });
 
     return favorits;
   }
@@ -82,13 +88,6 @@ class DatabaseManager {
 
     return products;
   }
-     
-    _fromQuerySnapshotToFavorites(QuerySnapshot<Map<String, dynamic>> querySnapshot){
-      for (var docSnapshot in querySnapshot.docs) {
-        List data = docSnapshot.data()?["favoritesIdList"];
-        favorits = products.where((Product product) => data.contains(product.id)).toList();
-      } 
-    }
 
   //get all products from a given category.
   Future<List<Product>> getProductsByCategory(Categories category) async {

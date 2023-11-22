@@ -7,8 +7,8 @@ import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:user_manuals_app/widgets/favorites_button.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:user_manuals_app/widgets/favorites_button.dart';
 
 class ProductScreen extends StatelessWidget {
   ProductScreen({
