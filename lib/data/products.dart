@@ -1,6 +1,4 @@
 import 'package:user_manuals_app/model/product.dart';
-import 'package:user_manuals_app/data/categories.dart';
-import 'package:user_manuals_app/data/manufacturers.dart';
 
 List<Product> products = [
 /*   Product(
