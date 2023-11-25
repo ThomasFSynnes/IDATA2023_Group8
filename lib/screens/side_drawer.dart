@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
+import 'package:user_manuals_app/screens/settings/change_password.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
@@ -91,32 +92,39 @@ class _SideDrawerState extends State<SideDrawer> {
             ),
 
             const Spacer(),
-            ElevatedButton(
-                onPressed: () async {
-                  print(database.getAllProducts());
-                },
-                child: const Text("db Test")),
             //Show different button based on login state.
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  //logout button
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.error),
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                    },
-                    child: Row(children: [
-                      const Icon(Icons.logout, color: Colors.black54),
-                      const SizedBox(width: 8),
-                      Text(
-                        "sideDrawer.buttons.logout".tr(),
-                        style: Theme.of(context).textTheme.titleMedium,
+                  return Column(
+                    children: [
+                      MenuButton(
+                        navigateTo: MaterialPageRoute(
+                            builder: (context) => ChangePasswordScreen()),
+                        title: 'Change Password',
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        icon: const Icon(Icons.person, color: Colors.black54),
                       ),
-                    ]),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.error),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                        },
+                        child: Row(children: [
+                          const Icon(Icons.logout, color: Colors.black54),
+                          const SizedBox(width: 8),
+                          Text(
+                            "sideDrawer.buttons.logout".tr(),
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ]),
+                      )
+                    ],
                   );
+                  //logout button
                 } else {
                   //login button
                   return MenuButton(
@@ -128,7 +136,7 @@ class _SideDrawerState extends State<SideDrawer> {
                   );
                 }
               },
-            )
+            ),
           ],
         ),
       ),
