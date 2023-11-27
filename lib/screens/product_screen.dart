@@ -86,8 +86,6 @@ class ProductScreen extends StatelessWidget {
     EasyLoading.dismiss();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -104,8 +102,12 @@ class ProductScreen extends StatelessWidget {
           ),
           title:
               Text(item.title, style: Theme.of(context).textTheme.titleLarge),
-          actions: [FavoritesButton(item: item,)],
-      ),
+          actions: [
+            FavoritesButton(
+              item: item,
+            )
+          ],
+        ),
         body: Column(
           children: [
             Expanded(
@@ -160,25 +162,6 @@ class ProductScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextButton.icon(
-                              onPressed: () {
-                                // TODO: IMPLEMENT FAVORITES
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('NOT IMPLEMENTED YET'),
-                                    duration: Duration(seconds: 5),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.add,
-                                color: Color(0xFF001E1D),
-                              ),
-                              label: Text(
-                                "Product.AddToSection".tr(),
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ),
                             TextButton.icon(
                               onPressed: () {
                                 if (item.pdfUrl.isNotEmpty) {
