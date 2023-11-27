@@ -1,8 +1,6 @@
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
-import 'package:user_manuals_app/data/categories.dart';
-import 'package:user_manuals_app/data/manufacturers.dart';
 
 var products = [
   /* Product(
