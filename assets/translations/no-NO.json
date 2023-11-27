@@ -19,7 +19,8 @@
         "AddToSection": "Legg til i Utvalg",
         "DownloadPDF": "Last ned PDF",
         "error": "Opps! PDF URL er tom.",
-        "OpenPDF": "Åpne PDF"
+        "OpenPDF": "Åpne PDF",
+        "download":"Laster ned..."
     },
     "EmptyList": "Ingen produkter tilgjenglig",
     "newManual": {

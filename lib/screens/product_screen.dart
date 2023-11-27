@@ -27,7 +27,7 @@ class ProductScreen extends StatelessWidget {
   }
 
   Future<void> downloadFile(BuildContext context, String url) async {
-    EasyLoading.show(status: 'Downloading...');
+    EasyLoading.show(status: "Product.download".tr());
     Dio dio = Dio();
     try {
       // Fetch the file
@@ -42,6 +42,7 @@ class ProductScreen extends StatelessWidget {
       bool dirDownloadExists = true;
       var directory;
       if (Platform.isAndroid) {
+        //work around for downloading to android downloads folder
         directory = "/storage/emulated/0/Download";
 
         dirDownloadExists = await Directory(directory).exists();
@@ -51,6 +52,7 @@ class ProductScreen extends StatelessWidget {
           directory = "/storage/emulated/0/Downloads";
         }
       } else {
+        //for other devices
         directory = await getDownloadsDirectory();
       }
       if (directory != null) {

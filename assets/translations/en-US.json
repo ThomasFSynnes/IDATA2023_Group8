@@ -20,7 +20,8 @@
         "AddToSection": "Add To Section",
         "DownloadPDF": "Download PDF",
         "error": "Opps! PDF URL is empty.",
-        "OpenPDF": "Open PDF"
+        "OpenPDF": "Open PDF",
+        "download":"Downloading..."
     },
     "newManual": {
         "text": {
