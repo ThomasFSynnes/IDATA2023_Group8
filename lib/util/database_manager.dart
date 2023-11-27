@@ -18,7 +18,7 @@ class DatabaseManager {
     database.collection(keyProducts).doc().set(product.toFirestore());
   }
 
-  //Create an empty list in the DB
+  //Create an empty list in the DB test 
   createFavorites() {
     if (FirebaseAuth.instance.currentUser == null) return;
 
