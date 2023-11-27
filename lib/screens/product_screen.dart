@@ -3,18 +3,21 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:user_manuals_app/widgets/favorites_button.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({
+  ProductScreen({
     super.key,
     required this.item,
   });
 
   final Product item;
+  final DatabaseManager db = DatabaseManager();
 
   Future<void> _launchPDFViewer(BuildContext context, String pdfUrl) async {
     await Navigator.push(
@@ -83,6 +86,8 @@ class ProductScreen extends StatelessWidget {
     EasyLoading.dismiss();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -99,7 +104,8 @@ class ProductScreen extends StatelessWidget {
           ),
           title:
               Text(item.title, style: Theme.of(context).textTheme.titleLarge),
-        ),
+          actions: [FavoritesButton(item: item,)],
+      ),
         body: Column(
           children: [
             Expanded(

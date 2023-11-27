@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 final _firebase = FirebaseAuth.instance;
@@ -24,6 +25,7 @@ class _LoginScreen extends State<LoginScreen> {
   void submit() async {
     EasyLoading.show(status: 'loading...');
     final isValid = _form.currentState!.validate();
+    DatabaseManager db = DatabaseManager();
 
     if (!isValid) {
       EasyLoading.dismiss();
@@ -57,6 +59,7 @@ class _LoginScreen extends State<LoginScreen> {
           'Success!',
           duration: const Duration(milliseconds: 300),
         );
+        db.createFavorites();
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         ScaffoldMessenger.of(context).clearSnackBars();

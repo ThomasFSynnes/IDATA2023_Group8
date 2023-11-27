@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
+import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
 import 'package:user_manuals_app/screens/settings/change_password.dart';
+import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
@@ -44,39 +46,73 @@ class _SideDrawerState extends State<SideDrawer> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  //logout button
-                  return ElevatedButton(
-                    onPressed: () async {
-                      final newProduct =
-                          await Navigator.of(context).push<Product>(
-                        MaterialPageRoute(
-                          builder: (ctx) => const NewManual(),
-                        ),
-                      );
+                  return Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          final newProduct =
+                              await Navigator.of(context).push<Product>(
+                            MaterialPageRoute(
+                              builder: (ctx) => const NewManual(),
+                            ),
+                          );
 
-                      if (newProduct != null) {
-                        setState(() {
-                          products.add(newProduct);
-                          DatabaseManager().addProduct(newProduct);
-                        });
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32)),
-                      backgroundColor:
-                          Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.upload_file, color: Colors.black54),
-                        const SizedBox(width: 8),
-                        Text(
-                          "sideDrawer.buttons.addManual".tr(),
-                          style: Theme.of(context).textTheme.titleMedium,
+                          if (newProduct != null) {
+                            setState(() {
+                              products.add(newProduct);
+                              DatabaseManager().addProduct(newProduct);
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
-                      ],
-                    ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.upload_file,
+                                color: Colors.black54),
+                            const SizedBox(width: 8),
+                            Text(
+                              "sideDrawer.buttons.addManual".tr(),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                        onPressed: () async {
+                          await DatabaseManager().syncFavorites();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) => ProductsScreen(
+                                products: favorits,
+                                pageTitle: "Favorites".tr(),
+                                image: "",
+                              ),
+                            ),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.star, color: Colors.black54),
+                            const SizedBox(width: 8),
+                            Text(
+                              "Favorites".tr(),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   );
                 } else {
                   //login button
@@ -91,8 +127,8 @@ class _SideDrawerState extends State<SideDrawer> {
               },
             ),
 
-            const Spacer(),
             //Show different button based on login state.
+            const Spacer(),
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -112,16 +148,19 @@ class _SideDrawerState extends State<SideDrawer> {
                                 Theme.of(context).colorScheme.error),
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
+                          favorits.clear();
                         },
-                        child: Row(children: [
-                          const Icon(Icons.logout, color: Colors.black54),
-                          const SizedBox(width: 8),
-                          Text(
-                            "sideDrawer.buttons.logout".tr(),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                        ]),
-                      )
+                        child: Row(
+                          children: [
+                            const Icon(Icons.logout, color: Colors.black54),
+                            const SizedBox(width: 8),
+                            Text(
+                              "sideDrawer.buttons.logout".tr(),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   );
                   //logout button
