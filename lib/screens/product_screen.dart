@@ -27,7 +27,7 @@ class ProductScreen extends StatelessWidget {
   }
 
   Future<void> downloadFile(BuildContext context, String url) async {
-    EasyLoading.show(status: 'loading...');
+    EasyLoading.show(status: 'Downloading...');
     Dio dio = Dio();
     try {
       // Fetch the file

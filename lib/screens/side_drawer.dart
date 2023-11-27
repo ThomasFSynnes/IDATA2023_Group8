@@ -95,7 +95,7 @@ class _SideDrawerState extends State<SideDrawer> {
                             MaterialPageRoute(
                               builder: (ctx) => ProductsScreen(
                                 products: favorits,
-                                pageTitle: "Favorites".tr(),
+                                pageTitle: "sideDrawer.buttons.favourites".tr(),
                                 image: "",
                               ),
                             ),
@@ -106,7 +106,7 @@ class _SideDrawerState extends State<SideDrawer> {
                             const Icon(Icons.star, color: Colors.black54),
                             const SizedBox(width: 8),
                             Text(
-                              "Favorites".tr(),
+                              "sideDrawer.buttons.favourites".tr(),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ],
@@ -137,8 +137,8 @@ class _SideDrawerState extends State<SideDrawer> {
                     children: [
                       MenuButton(
                         navigateTo: MaterialPageRoute(
-                            builder: (context) => ChangePasswordScreen()),
-                        title: 'Change Password',
+                            builder: (context) => const ChangePasswordScreen()),
+                        title: "sideDrawer.buttons.change".tr(),
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
                         icon: const Icon(Icons.person, color: Colors.black54),
                       ),

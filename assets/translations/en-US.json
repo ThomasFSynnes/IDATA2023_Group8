@@ -41,10 +41,22 @@
             "Localization": "Languages"
         },
         "buttons": {
+            "favourites": "Favourites",
+            "change": "Change Password",
             "login": "Sign up/Login",
             "logout": "Logout",
             "addManual": "Add Manual",
-            "upload":"Login to upload"
+            "upload":"Login to upload and gain access to your favourites"
         }    
+    },
+    "ChangePassword": {
+        "changePassword": "Change Password",
+        "oldPassword": "Old Password",
+        "newPassword": "New Password",
+        "pleaseOld":"Please enter your password",
+        "pleaseNew":"Please enter your new password",
+        "noMatch":"Passwords do not match",
+        "confirmPassword": "Confirm Password",
+        "changeSuccess":"Passwor change successful"
     }
 }

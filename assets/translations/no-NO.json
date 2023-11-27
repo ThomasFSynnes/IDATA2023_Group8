@@ -41,11 +41,22 @@
             "Localization": "Språk"
         },
         "buttons": {
+            "favourites": "Favoritter",
+            "change": "Bytt passord",
             "login": "Registrer/Logg inn",
             "logout": "Logout",
             "addManual": "Laste opp manual",
-            "upload":"Logg inn for å laste opp"
+            "upload":"Logg inn for å laste opp og få tilgang til favoritter"
         }
-        
-    }
-}
+},
+    "ChangePassword": {
+        "changePassword": "Bytt Passord",
+        "oldPassword": "Gamelt Passord",
+        "pleaseOld":"Vennligst fyll inn ditt gamle passord",
+        "pleaseNew":"Vennligst fyll inn ditt nye passord",
+        "noMatch":"Passordene samsvarer ikke",
+        "newPassword": "Nytt Passord",
+        "confirmPassword": "Bekreft Passord",
+        "changeSuccess":"Passord bytte vellykket"
+    }  
+} 

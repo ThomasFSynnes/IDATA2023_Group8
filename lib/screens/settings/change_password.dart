@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -21,7 +22,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       backgroundColor: Theme.of(context).colorScheme.onBackground,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.onBackground,
-        title: const Text('Change Password'),
+        title: Text(
+          "ChangePassword.changePassword".tr(),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -33,11 +36,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               TextFormField(
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimaryContainer),
-                decoration: const InputDecoration(labelText: 'Old Password'),
+                decoration: InputDecoration(
+                  labelText: "ChangePassword.oldPassword".tr(),
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your old password';
+                    return "ChangePassword.pleaseOld".tr();
                   }
                   return null;
                 },
@@ -50,11 +55,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               TextFormField(
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimaryContainer),
-                decoration: const InputDecoration(labelText: 'New Password'),
+                decoration: InputDecoration(
+                  labelText: "ChangePassword.newPassword".tr(),
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a new password';
+                    return "ChangePassword.pleaseNew".tr();
                   }
                   return null;
                 },
@@ -67,12 +74,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               TextFormField(
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimaryContainer),
-                decoration:
-                    const InputDecoration(labelText: 'Confirm New Password'),
+                decoration: InputDecoration(
+                  labelText: "ChangePassword.confirmPassword".tr(),
+                ),
                 obscureText: true,
                 validator: (value) {
                   if (value != _newPassword) {
-                    return 'Passwords do not match';
+                    return "ChangePassword.noMatch".tr();
                   }
                   return null;
                 },
@@ -92,7 +100,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   }
                 },
                 child: Text(
-                  'Change Password',
+                  "ChangePassword.changePassword".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -113,7 +121,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         await user.reauthenticateWithCredential(credential);
         await user.updatePassword(_newPassword);
         EasyLoading.dismiss();
-        EasyLoading.showSuccess('Password changed successfully');
+        EasyLoading.showSuccess("ChangePassword.changeSuccess".tr());
         Navigator.of(context).pop();
       } else {
         EasyLoading.showError('User not found');
