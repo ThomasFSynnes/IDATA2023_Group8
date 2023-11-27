@@ -27,7 +27,7 @@ class Localization extends StatelessWidget {
           "sideDrawer.text.Localization".tr(),
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.onPrimary,
         ),

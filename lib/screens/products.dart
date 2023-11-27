@@ -12,7 +12,7 @@ class ProductsScreen extends StatelessWidget {
   final List products;
   final String pageTitle;
   final String image;
-
+ 
   @override
   Widget build(BuildContext context) {
     if (products.isEmpty) {
@@ -43,11 +43,11 @@ class ProductsScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         iconTheme: IconThemeData(
-          color: Theme.of(context).colorScheme.onPrimary,
+          color: Theme.of(context).colorScheme.background,
         ),
       ),
       body: Column(

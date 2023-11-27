@@ -49,7 +49,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '630133952828',
     projectId: 'usermanual-app',
     authDomain: 'usermanual-app.firebaseapp.com',
-    databaseURL: 'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'usermanual-app.appspot.com',
   );
 
@@ -58,7 +59,8 @@ class DefaultFirebaseOptions {
     appId: '1:630133952828:android:e2359f5446e78479864e39',
     messagingSenderId: '630133952828',
     projectId: 'usermanual-app',
-    databaseURL: 'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'usermanual-app.appspot.com',
   );
 
@@ -67,7 +69,8 @@ class DefaultFirebaseOptions {
     appId: '1:630133952828:ios:d3c0023f4605ed58864e39',
     messagingSenderId: '630133952828',
     projectId: 'usermanual-app',
-    databaseURL: 'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'usermanual-app.appspot.com',
     iosBundleId: 'com.example.userManualsApp',
   );
@@ -77,7 +80,8 @@ class DefaultFirebaseOptions {
     appId: '1:630133952828:ios:ed5599bb29139ef2864e39',
     messagingSenderId: '630133952828',
     projectId: 'usermanual-app',
-    databaseURL: 'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'usermanual-app.appspot.com',
     iosBundleId: 'com.example.userManualsApp.RunnerTests',
   );
