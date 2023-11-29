@@ -5,18 +5,18 @@ import 'package:user_manuals_app/screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-final darkColorScheme = ColorScheme.fromSeed(
-  brightness: Brightness.dark,
-  seedColor: const Color(0xFF001E1D),
-  onBackground: const Color(0xFF001E1D),
-  onSecondary: const Color(0xFFABD1C6),
-  onPrimaryContainer: const Color(0xFFE8E4E6),
-  onSecondaryContainer: const Color(0xffF9BC60),
-);
-
 final theme = ThemeData(
   useMaterial3: true,
-  colorScheme: darkColorScheme,
+  colorScheme: ColorScheme.fromSeed(
+    brightness: Brightness.dark,
+    seedColor: const Color(0xFF001E1D),
+    onBackground: const Color(0xFF001E1D),
+    onSecondary: const Color(0xFFABD1C6),
+    onPrimaryContainer: const Color(0xFFE8E4E6),
+    onSecondaryContainer: const Color(0xffF9BC60),
+    error: const Color.fromARGB(255, 206, 78, 39),
+    onErrorContainer: const Color.fromARGB(255, 219, 142, 118),
+  ),
   textTheme: const TextTheme(
     titleMedium: TextStyle(
       color: Color(0xFF001E1D),

@@ -5,6 +5,7 @@ import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
+import 'package:user_manuals_app/screens/settings/userPage.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
 import 'package:user_manuals_app/widgets/menu_button.dart';
@@ -92,7 +93,7 @@ class _SideDrawerState extends State<SideDrawer> {
                             MaterialPageRoute(
                               builder: (ctx) => ProductsScreen(
                                 products: favorits,
-                                pageTitle: "Favorites".tr(),
+                                pageTitle: "sideDrawer.buttons.favourites".tr(),
                                 image: "",
                               ),
                             ),
@@ -103,7 +104,7 @@ class _SideDrawerState extends State<SideDrawer> {
                             const Icon(Icons.star, color: Colors.black54),
                             const SizedBox(width: 8),
                             Text(
-                              "Favorites".tr(),
+                              "sideDrawer.buttons.favourites".tr(),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ],
@@ -130,24 +131,37 @@ class _SideDrawerState extends State<SideDrawer> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  // logout button
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.error,
-                    ),
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                    },
-                    child: Row(children: [
-                      const Icon(Icons.logout,
-                          color: Color.fromARGB(255, 5, 139, 95)),
-                      const SizedBox(width: 8),
-                      Text(
-                        "sideDrawer.buttons.logout".tr(),
-                        style: Theme.of(context).textTheme.titleMedium,
+                  return Column(
+                    children: [
+                      MenuButton(
+                        navigateTo: MaterialPageRoute(
+                            builder: (context) => const UserPage()),
+                        title: "sideDrawer.text.UserPage".tr(),
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        icon: const Icon(Icons.person, color: Colors.black54),
                       ),
-                    ]),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onErrorContainer),
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                          favorits.clear();
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.logout, color: Colors.black54),
+                            const SizedBox(width: 8),
+                            Text(
+                              "sideDrawer.buttons.logout".tr(),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   );
+                  //logout button
                 } else {
                   // login button
                   return MenuButton(

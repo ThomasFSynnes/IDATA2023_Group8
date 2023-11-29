@@ -20,7 +20,8 @@
         "AddToSection": "Add To Section",
         "DownloadPDF": "Download PDF",
         "error": "Opps! PDF URL is empty.",
-        "OpenPDF": "Open PDF"
+        "OpenPDF": "Open PDF",
+        "download":"Downloading..."
     },
     "newManual": {
         "text": {
@@ -38,13 +39,36 @@
     },
     "sideDrawer": {
         "text": {
-            "Localization": "Languages"
+            "Localization": "Languages",
+            "UserPage":"User Page"
         },
         "buttons": {
+            "favourites": "Favourites",
+            "change": "Change Password",
             "login": "Sign up/Login",
             "logout": "Logout",
             "addManual": "Add Manual",
-            "upload":"Login to upload"
+            "upload":"Login to upload and gain access to your favourites"
         }    
-    }
+    },
+    "ChangePassword": {
+        "changePassword": "Change Password",
+        "oldPassword": "Old Password",
+        "newPassword": "New Password",
+        "pleaseOld":"Please enter your password",
+        "pleaseNew":"Please enter your new password",
+        "noMatch":"Passwords do not match",
+        "confirmPassword": "Confirm Password",
+        "changeSuccess":"Passwor change successful"
+    },    
+    "ChangeEmail": {
+        "changeEmail": "Change Email",
+        "password": "Password",
+        "pleaseEnterPass":"Please enter your password",
+        "pleaseEnterEmail":"Please enter your new Email",
+        "newEmail": "New Email",
+        "changeEmailSuccess": "Email change successful",
+        "changeFailed":"Email change failed",
+        "userNotFound":"User not found"
+    }   
 }

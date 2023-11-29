@@ -16,7 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
 
-  var _isLogin = false;
+  var _isLogin = true;
   var _userEmail = "";
   var _userPassword = "";
 
@@ -148,8 +148,43 @@ class _LoginScreen extends State<LoginScreen> {
                       : "SignUp.haveAccount".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  onPressed: submit,
+                  child: Text(
+                    _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.onPrimaryContainer,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isLogin = !_isLogin;
+                    });
+                  },
+                  child: Text(
+                    _isLogin
+                        ? "SignUp.createAccount".tr()
+                        : "SignUp.haveAccount".tr(),
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

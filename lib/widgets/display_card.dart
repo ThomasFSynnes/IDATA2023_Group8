@@ -20,74 +20,92 @@ class DisplayCard extends StatelessWidget {
     return Container(
       width: 200,
       height: 200,
-      child: Card(
-        margin: const EdgeInsets.all(8),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.circular(8)),
-        clipBehavior: Clip.hardEdge,
-        elevation: 2,
-        child: InkWell(
-          onTap: () {
-            if (item is Product) {
-              // Navigate to the product page
-              _selectProduct(context, item);
-            } else if (item is Manufacture) {
-              _selectManufacturer(context, item);
-            } else if (item is Category) {
-              _selectCategory(context, item);
-            }
-          },
-          child: Stack(
-            children: [
-              if (item is Product) ...{
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: NetworkImage(item.imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              } else ...{
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage(item.imageUrl),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Card(
+            color: Colors.white,
+            margin: const EdgeInsets.all(8),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusDirectional.circular(8)),
+            clipBehavior: Clip.hardEdge,
+            elevation: 2,
+            child: InkWell(
+              onTap: () {
+                if (item is Product) {
+                  // Navigate to the product page
+                  _selectProduct(context, item);
+                } else if (item is Manufacture) {
+                  _selectManufacturer(context, item);
+                } else if (item is Category) {
+                  _selectCategory(context, item);
+                }
               },
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: Colors.black54,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 44),
-                  child: Column(
-                    children: [
-                      Text(
-                        item.title,
-                        maxLines: 2,
-                        textAlign: TextAlign.center,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+              child: Stack(
+                children: [
+                  if (item is Product) ...{
+                    Image.network(
+                      item.imageUrl,
+                      width: constraints.maxWidth,
+                      height: constraints.maxHeight,
+                      fit: BoxFit.cover, // Fill the entire available space
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  } else ...{
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(item.imageUrl),
+                          fit: BoxFit
+                              .fill, // Make the image cover all available space
+                        ),
                       ),
-                    ],
+                    ),
+                  },
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      color: Colors.black54,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 44),
+                      child: Column(
+                        children: [
+                          Text(
+                            item.title,
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                            softWrap: true,
+                            overflow: TextOverflow
+                                .ellipsis, //Cuts of very long text to end with ...
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

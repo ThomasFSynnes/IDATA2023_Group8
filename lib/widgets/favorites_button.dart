@@ -25,7 +25,6 @@ class _FavoritesButton extends State<FavoritesButton> {
 
     addFavorites() async {
       await db.addFavorites(widget.item);
-      print("addFavorites Buton");
       setState(() {
         isFavorite = true;
       });
@@ -33,7 +32,6 @@ class _FavoritesButton extends State<FavoritesButton> {
 
     removeFavorites() async {
       await db.removeFavorites(widget.item);
-      print("removeFavorites Buton");
       setState(() {
         isFavorite = false;
       });
