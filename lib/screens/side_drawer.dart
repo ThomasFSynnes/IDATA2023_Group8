@@ -2,7 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
+import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
+import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
 import 'package:user_manuals_app/screens/settings/userPage.dart';
@@ -25,14 +27,14 @@ class _SideDrawerState extends State<SideDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.onBackground,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
         child: Column(
           children: [
             const SizedBox(height: 32),
             MenuButton(
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               navigateTo:
                   MaterialPageRoute(builder: (ctx) => const Localization()),
               title: "sideDrawer.text.Localization".tr(),
@@ -163,14 +165,13 @@ class _SideDrawerState extends State<SideDrawer> {
                   );
                   //logout button
                 } else {
-                  // login button
+                  //login button
                   return MenuButton(
                     color: Theme.of(context).colorScheme.onSecondaryContainer,
                     navigateTo: MaterialPageRoute(
                         builder: (ctx) => const LoginScreen()),
                     title: "sideDrawer.buttons.login".tr(),
-                    icon: const Icon(Icons.login,
-                        color: Color.fromARGB(255, 5, 139, 95)),
+                    icon: const Icon(Icons.login, color: Colors.black54),
                   );
                 }
               },

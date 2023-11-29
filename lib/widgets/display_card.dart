@@ -9,9 +9,9 @@ import 'package:user_manuals_app/util/database_manager.dart';
 
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
-    Key? key,
+    super.key,
     required this.item,
-  }) : super(key: key);
+  });
 
   final dynamic item;
 
@@ -109,61 +109,46 @@ class DisplayCard extends StatelessWidget {
       ),
     );
   }
-
-  void _selectProduct(BuildContext context, Product product) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => ProductScreen(item: product),
-      ),
-    );
-  }
-
-  void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => DisplayManufacturer(manufacturer: manufacturer),
-      ),
-    );
-  }
-
-  void _selectCategory(BuildContext context, Category category) async {
-    List<Product> filteredProducts =
-        await DatabaseManager().getProductsByCategory(category.type);
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => ProductsScreen(
-          products: filteredProducts,
-          pageTitle: category.title,
-          image: category.imageUrl,
-        ),
-      ),
-    );
-  }
 }
 
-class DisplayManufacturer extends StatelessWidget {
-  const DisplayManufacturer({
-    super.key,
-    required this.manufacturer,
-  });
+void _selectProduct(BuildContext context, Product product) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (ctx) => ProductScreen(item: product),
+    ),
+  );
+}
 
-  final Manufacture manufacturer;
+void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
+  List<Product> filteredProducts = products
+      .where((product) => product.manufacture.id == manufacturer.id.toString())
+      .toList();
 
-  @override
-  Widget build(BuildContext context) {
-    List<Product> filteredProducts = products
-        .where((product) => product.manufacture.id == manufacturer.id)
-        .toList();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(manufacturer.title),
-      ),
-      body: ProductsScreen(
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (ctx) => ProductsScreen(
         products: filteredProducts,
         pageTitle: manufacturer.title,
         image: manufacturer.imageUrl,
       ),
-    );
-  }
+    ),
+  );
+}
+
+void _selectCategory(BuildContext context, Category category) async {
+  /* List<Product> filteredProducts = products
+      .where((product) => product.category.id == category.id.toString())
+      .toList(); */
+  // To store the ProductNotifier instance
+  List<Product> filteredProducts =
+      await DatabaseManager().getProductsByCategory(category.type);
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (ctx) => ProductsScreen(
+        products: filteredProducts,
+        pageTitle: category.title,
+        image: category.imageUrl,
+      ),
+    ),
+  );
 }

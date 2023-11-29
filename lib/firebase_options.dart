@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,24 +49,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAQqxVTrmM_LEVtiE5_6uL1IHPU5k5kmYE',
-    appId: '1:630133952828:web:0d330edfff6d1c08864e39',
-    messagingSenderId: '630133952828',
-    projectId: 'usermanual-app',
-    authDomain: 'usermanual-app.firebaseapp.com',
-    databaseURL:
-        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'usermanual-app.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD_neZSsqkDO0nYb1CpHw1xOH0ZulsM-gY',
     appId: '1:630133952828:android:e2359f5446e78479864e39',
     messagingSenderId: '630133952828',
     projectId: 'usermanual-app',
-    databaseURL:
-        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL: 'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'usermanual-app.appspot.com',
   );
 
@@ -69,20 +63,8 @@ class DefaultFirebaseOptions {
     appId: '1:630133952828:ios:d3c0023f4605ed58864e39',
     messagingSenderId: '630133952828',
     projectId: 'usermanual-app',
-    databaseURL:
-        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL: 'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'usermanual-app.appspot.com',
     iosBundleId: 'com.example.userManualsApp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyALtc_JllW9KnY1Hbbrgo2WLraMc0OcVNI',
-    appId: '1:630133952828:ios:ed5599bb29139ef2864e39',
-    messagingSenderId: '630133952828',
-    projectId: 'usermanual-app',
-    databaseURL:
-        'https://usermanual-app-default-rtdb.europe-west1.firebasedatabase.app',
-    storageBucket: 'usermanual-app.appspot.com',
-    iosBundleId: 'com.example.userManualsApp.RunnerTests',
   );
 }

@@ -1,34 +1,15 @@
-import 'package:user_manuals_app/model/category.dart';
-import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
 
-var products = [
-  /* Product(
-      id: 'p1',
-      category: categories[Categories.SmartPhones]!,
-      manufacture: manufactures[Manufacturers.Apple]!,
-      title: 'IPhone 14',
-      imageUrl: 'assets/products/iphone14.png',
-      pdfUrl: ""),
-  Product(
-      id: 'p2',
-      category: categories[Categories.SmartPhones]!,
-      manufacture: manufactures[Manufacturers.Samsung]!,
-      title: 'Samsung Galaxy 22',
-      imageUrl: 'assets/products/SamsungGalaxy22.png',
-      pdfUrl: ""),
-  Product(
-      id: 'p3',
-      category: categories[Categories.Laptops]!,
-      manufacture: manufactures[Manufacturers.Acer]!,
-      title: 'Acer Aspire 3',
-      imageUrl: 'assets/products/aceraspire3.png',
-      pdfUrl: ""), */
-  Product(
+List<Product> products = [
+/*   Product(
       id: 'p4',
       category: categories[Categories.tablets]!,
       manufacture: manufactures[Manufacturers.apple]!,
-      title: 'IPad',
-      imageUrl: 'assets/products/ipad.png',
-      pdfUrl: "")
+      title: 'iPad Pro 12.9-inch (3rd generation)',
+      imageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/usermanual-app.appspot.com/o/images%2F2023-11-22%2019%3A24%3A11.066854?alt=media&token=e4af1f6d-5641-4441-9372-cc63b748bd87",
+      pdfUrl:
+          "https://firebasestorage.googleapis.com/v0/b/usermanual-app.appspot.com/o/files%2F2023-11-22%2019%3A24%3A28.414463?alt=media&token=0a71d8a6-d909-4ff4-be01-f6d7b11cabaf",
+      modelNumber: "A1876",
+      releaseYear: "2018"), */
 ];

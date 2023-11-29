@@ -12,13 +12,15 @@ class DatabaseManager {
   final database = FirebaseFirestore.instance;
   final keyUserFavorites = "usersFavorites";
   final keyProducts = "products";
+  final Stream<QuerySnapshot> _favoritsStream = 
+    FirebaseFirestore.instance.collection("usersFavorites").snapshots();
 
   //Adds a product to database
   addProduct(Product product) {
     database.collection(keyProducts).doc().set(product.toFirestore());
   }
 
-  //Create an empty list in the DB test 
+  //Create an empty list in the DB
   createFavorites() {
     if (FirebaseAuth.instance.currentUser == null) return;
 
@@ -59,6 +61,8 @@ class DatabaseManager {
   Future<List<Product>> syncFavorites() async {
     if (FirebaseAuth.instance.currentUser == null) return [];
     User user = FirebaseAuth.instance.currentUser!;
+    
+
 
     await database
         .collection(keyUserFavorites)

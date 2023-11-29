@@ -54,15 +54,15 @@ const categories = {
 };
 
 List<Categories> categoriesList = [
-  Categories.fridge,
+  Categories.smartPhones,
+  Categories.smartWatch,
   Categories.laptops,
   Categories.microphone,
   Categories.microwave,
   Categories.monitors,
-  Categories.smartPhones,
-  Categories.smartWatch,
   Categories.speakers,
   Categories.tablets,
+  Categories.fridge,
   Categories.others
   // Add other Manufacturers values as needed
 ];

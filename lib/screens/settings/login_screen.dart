@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -21,9 +23,14 @@ class _LoginScreen extends State<LoginScreen> {
   var _userPassword = "";
 
   void submit() async {
+    EasyLoading.show(status: 'loading...');
     final isValid = _form.currentState!.validate();
+    DatabaseManager db = DatabaseManager();
 
-    if (!isValid) return;
+    if (!isValid) {
+      EasyLoading.dismiss();
+      return;
+    }
 
     _form.currentState!.save();
 
@@ -31,8 +38,14 @@ class _LoginScreen extends State<LoginScreen> {
       try {
         final userCredential = await _firebase.signInWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
+        EasyLoading.dismiss();
+        EasyLoading.showSuccess(
+          'Success!',
+          duration: const Duration(milliseconds: 300),
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
+        EasyLoading.dismiss();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error.message ?? 'Authentication failed.')),
         );
@@ -41,12 +54,19 @@ class _LoginScreen extends State<LoginScreen> {
       try {
         final userCredential = await _firebase.createUserWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
+        EasyLoading.dismiss();
+        EasyLoading.showSuccess(
+          'Success!',
+          duration: const Duration(milliseconds: 300),
+        );
+        db.createFavorites();
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         ScaffoldMessenger.of(context).clearSnackBars();
         // Todo: error handeling.
         if (error.code == "") {
         } else {
+          EasyLoading.dismiss();
           // Display error to user
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(error.message ?? 'Authentication failed.')),
@@ -59,94 +79,65 @@ class _LoginScreen extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.onBackground,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
         title: const Text("Login"),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _form,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 100,
-              ),
-              Text(
-                _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Cabin',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Form(
+            key: _form,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 100,
                 ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: "E-mail",
-                ),
-                keyboardType: TextInputType.emailAddress,
-                autocorrect: false,
-                textCapitalization: TextCapitalization.none,
-                validator: (value) {
-                  if (value == null ||
-                      value.trim().isEmpty ||
-                      !value.contains("@")) {
-                    return "SignUp.emailNotAvailable".tr();
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _userEmail = value!;
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: "SignUp.password".tr(),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.trim().length < 6) {
-                    return "SignUp.passwordError".tr(); //todo: tr
-                  }
-                },
-                onSaved: (value) {
-                  _userPassword = value!;
-                },
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onSecondaryContainer,
-                ),
-                onPressed: submit,
-                child: Text(
+                Text(
                   _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Cabin',
+                  ),
                 ),
-              ), //todo: tr
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32)),
-                  backgroundColor:
-                      Theme.of(context).colorScheme.onPrimaryContainer,
+                TextFormField(
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer),
+                  decoration: const InputDecoration(
+                    labelText: "E-mail",
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  autocorrect: false,
+                  textCapitalization: TextCapitalization.none,
+                  validator: (value) {
+                    if (value == null ||
+                        value.trim().isEmpty ||
+                        !value.contains("@")) {
+                      return "SignUp.emailNotAvailable".tr();
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _userEmail = value!;
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    _isLogin = !_isLogin;
-                  });
-                },
-                child: Text(
-                  _isLogin
-                      ? "SignUp.createAccount".tr()
-                      : "SignUp.haveAccount".tr(),
-                  style: Theme.of(context).textTheme.titleMedium,
+                TextFormField(
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer),
+                  decoration: InputDecoration(
+                    labelText: "SignUp.password".tr(),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.trim().length < 6) {
+                      return "SignUp.passwordError".tr(); //todo: tr
+                    }
+                  },
+                  onSaved: (value) {
+                    _userPassword = value!;
+                  },
                 ),
                 const SizedBox(
                   height: 16,

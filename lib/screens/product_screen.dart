@@ -3,17 +3,21 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:user_manuals_app/widgets/favorites_button.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({
+  ProductScreen({
     super.key,
     required this.item,
   });
 
   final Product item;
+  final DatabaseManager db = DatabaseManager();
 
   Future<void> _launchPDFViewer(BuildContext context, String pdfUrl) async {
     await Navigator.push(
@@ -25,7 +29,6 @@ class ProductScreen extends StatelessWidget {
   Future<void> downloadFile(BuildContext context, String url) async {
     EasyLoading.show(status: "Product.download".tr());
     Dio dio = Dio();
-
     try {
       // Fetch the file
       Response response = await dio.get(
@@ -54,10 +57,10 @@ class ProductScreen extends StatelessWidget {
       }
       if (directory != null) {
         // Specify the file path and name where you want to save the file
-        String filePath = '$directory/downloaded_file.pdf';
+        String filePath = '$directory/${item.title}-downloaded_file.pdf';
         // Write the file to the downloads directory
         await File(filePath).writeAsBytes(response.data);
-
+        EasyLoading.dismiss();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('File downloaded to: $filePath'),
@@ -65,6 +68,7 @@ class ProductScreen extends StatelessWidget {
           ),
         );
       } else {
+        EasyLoading.dismiss();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Could not access downloads directory.'),
@@ -73,6 +77,7 @@ class ProductScreen extends StatelessWidget {
         );
       }
     } catch (e) {
+      EasyLoading.dismiss();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Download error: $e'),
@@ -80,6 +85,7 @@ class ProductScreen extends StatelessWidget {
         ),
       );
     }
+    EasyLoading.dismiss();
   }
 
   @override
@@ -98,8 +104,12 @@ class ProductScreen extends StatelessWidget {
           ),
           title:
               Text(item.title, style: Theme.of(context).textTheme.titleLarge),
-          actions: [FavoritesButton(item: item,)],
-      ),
+          actions: [
+            FavoritesButton(
+              item: item,
+            )
+          ],
+        ),
         body: Column(
           children: [
             Expanded(
@@ -154,25 +164,6 @@ class ProductScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextButton.icon(
-                              onPressed: () {
-                                // TODO: IMPLEMENT FAVORITES
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('NOT IMPLEMENTED YET'),
-                                    duration: Duration(seconds: 5),
-                                  ),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.add,
-                                color: Color(0xFF001E1D),
-                              ),
-                              label: Text(
-                                "Product.AddToSection".tr(),
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                            ),
                             TextButton.icon(
                               onPressed: () {
                                 if (item.pdfUrl.isNotEmpty) {

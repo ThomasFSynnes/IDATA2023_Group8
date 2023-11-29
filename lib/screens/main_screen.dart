@@ -9,19 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/side_drawer.dart';
 import 'package:user_manuals_app/widgets/horizontal_list.dart';
-import 'package:user_manuals_app/widgets/vertical_list.dart';
-
-final showListViewProvider = StateNotifierProvider<ShowListViewNotifier, bool>(
-  (ref) => ShowListViewNotifier(),
-);
-
-class ShowListViewNotifier extends StateNotifier<bool> {
-  ShowListViewNotifier() : super(false);
-
-  void toggle() {
-    state = !state;
-  }
-}
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -31,11 +18,8 @@ class MainPage extends StatelessWidget {
     return Consumer(
       builder: (context, ref, child) {
         final products = ref.read(productProvider);
-
         return Scaffold(
-          backgroundColor: Theme.of(context)
-              .colorScheme
-              .onPrimaryContainer, //TODO: FIX COLORS
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
           body: SingleChildScrollView(
             child: Column(children: [
               const SizedBox(
@@ -43,58 +27,36 @@ class MainPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  18,
-                  10,
-                  0,
-                  0,
-                ), // Adjust the left padding as needed
+                    18, 10, 0, 0), // Adjust the left padding as needed
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      "Products".tr(),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.view_module),
-                          onPressed: () {
-                            ref.read(showListViewProvider.notifier).toggle();
-                          },
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => ProductsScreen(
-                                  products: products,
-                                  pageTitle: "Products".tr(),
-                                  image: "",
-                                ),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'See More'.tr(),
-                            style: Theme.of(context).textTheme.titleSmall,
+                    Text("Products".tr(),
+                        style: Theme.of(context).textTheme.titleMedium),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => ProductsScreen(
+                              products: products,
+                              pageTitle: "Products".tr(),
+                              image: "",
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        );
+                      },
+                      child: Text(
+                        'See More'.tr(),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    )
                   ],
                 ),
               ),
-              ref.watch(showListViewProvider)
-                  ? VerticalList(items: products.toList())
-                  : HorizontalList(list: products.toList()),
+              HorizontalList(list: products.toList()),
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  18,
-                  0,
-                  0,
-                  0,
-                ), // Adjust the left padding as needed
+                    18, 0, 0, 0), // Adjust the left padding as needed
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -102,46 +64,30 @@ class MainPage extends StatelessWidget {
                       'Manufacturers'.tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.view_module),
-                          onPressed: () {
-                            ref.read(showListViewProvider.notifier).toggle();
-                          },
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => ProductsScreen(
-                                  products: manufactureObjects,
-                                  pageTitle: 'Manufacturers'.tr(),
-                                  image: "",
-                                ),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'See More'.tr(),
-                            style: Theme.of(context).textTheme.titleSmall,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => ProductsScreen(
+                              products: manufactureObjects,
+                              pageTitle: 'Manufacturers'.tr(),
+                              image: "",
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        );
+                      },
+                      child: Text(
+                        'See More'.tr(),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    )
                   ],
                 ),
               ),
-              ref.watch(showListViewProvider)
-                  ? VerticalList(items: manufactureObjects)
-                  : HorizontalList(list: manufactureObjects),
+              HorizontalList(list: manufactureObjects),
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  18,
-                  0,
-                  0,
-                  0,
-                ), // Adjust the left padding as needed
+                    18, 0, 0, 0), // Adjust the left padding as needed
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -149,45 +95,33 @@ class MainPage extends StatelessWidget {
                       "Categories".tr(),
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.view_module),
-                          onPressed: () {
-                            ref.read(showListViewProvider.notifier).toggle();
-                          },
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (ctx) => ProductsScreen(
-                                  products: categoryObjects,
-                                  pageTitle: "Categories".tr(),
-                                  image: "",
-                                ),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'See More'.tr(),
-                            style: Theme.of(context).textTheme.titleSmall,
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) => ProductsScreen(
+                              products: categoryObjects,
+                              pageTitle: "Categories".tr(),
+                              image: "",
+                            ),
                           ),
-                        ),
-                      ],
+                        );
+                      },
+                      child: Text(
+                        'See More'.tr(),
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ),
                   ],
                 ),
               ),
-              ref.watch(showListViewProvider)
-                  ? VerticalList(items: categoryObjects)
-                  : HorizontalList(list: categoryObjects),
+              HorizontalList(list: categoryObjects)
             ]),
           ),
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+            backgroundColor: Theme.of(context).colorScheme.onSecondary,
             iconTheme: IconThemeData(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
           //Todo: Bug, app crashes when opening drawer by swiping.
