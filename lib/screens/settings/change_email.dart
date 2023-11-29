@@ -3,18 +3,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class ChangePasswordScreen extends StatefulWidget {
-  const ChangePasswordScreen({super.key});
+class ChangeEmailPage extends StatefulWidget {
+  const ChangeEmailPage({super.key});
 
   @override
-  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+  State<ChangeEmailPage> createState() => _ChangeEmailPageState();
 }
 
-class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  final _formKey = GlobalKey<FormState>();
+class _ChangeEmailPageState extends State<ChangeEmailPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  String _oldPassword = '';
-  String _newPassword = '';
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _newEmail = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         title: Text(
-          "ChangePassword.changePassword".tr(),
+          "ChangeEmail.changeEmail".tr(),
           style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
           ),
@@ -41,10 +41,29 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             children: [
               TextFormField(
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
                 decoration: InputDecoration(
-                  labelText: "ChangePassword.oldPassword".tr(),
+                    labelText: "ChangeEmail.newEmail".tr(),
+                    labelStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    )),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "ChangeEmail.pleaseEnterEmail".tr();
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  setState(() {
+                    _newEmail = value;
+                  });
+                },
+              ),
+              TextFormField(
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+                decoration: InputDecoration(
+                  labelText: "ChangeEmail.password".tr(),
                   labelStyle: TextStyle(
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
@@ -52,55 +71,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "ChangePassword.pleaseOld".tr();
+                    return "ChangeEmail.pleaseEnterPass".tr();
                   }
                   return null;
                 },
                 onChanged: (value) {
                   setState(() {
-                    _oldPassword = value;
+                    _password = value;
                   });
-                },
-              ),
-              TextFormField(
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
-                decoration: InputDecoration(
-                  labelText: "ChangePassword.newPassword".tr(),
-                  labelStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "ChangePassword.pleaseNew".tr();
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  setState(() {
-                    _newPassword = value;
-                  });
-                },
-              ),
-              TextFormField(
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                ),
-                decoration: InputDecoration(
-                  labelText: "ChangePassword.confirmPassword".tr(),
-                  labelStyle: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value != _newPassword) {
-                    return "ChangePassword.noMatch".tr();
-                  }
-                  return null;
                 },
               ),
               const SizedBox(height: 20),
@@ -113,11 +91,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    await changePassword();
+                    _changeEmail();
                   }
                 },
                 child: Text(
-                  "ChangePassword.changePassword".tr(),
+                  "ChangeEmail.changeEmail".tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -128,23 +106,33 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
-  Future<void> changePassword() async {
+  Future<void> _changeEmail() async {
     try {
       User? user = auth.currentUser;
       if (user != null) {
         AuthCredential credential = EmailAuthProvider.credential(
-            email: user.email!, password: _oldPassword);
+          email: user.email!,
+          password: _password,
+        );
         EasyLoading.show(status: 'loading...');
         await user.reauthenticateWithCredential(credential);
-        await user.updatePassword(_newPassword);
+
+        await user.updateEmail(_newEmail);
+
         EasyLoading.dismiss();
-        EasyLoading.showSuccess("ChangePassword.changeSuccess".tr());
+        EasyLoading.showSuccess(
+          "ChangeEmail.changeEmailSuccess".tr(),
+        );
         Navigator.of(context).pop();
       } else {
-        EasyLoading.showError('User not found');
+        EasyLoading.showError(
+          "ChangeEmail.userNotFound".tr(),
+        );
       }
     } on FirebaseAuthException catch (error) {
-      EasyLoading.showError(error.message ?? 'Password change failed');
+      EasyLoading.showError(
+        error.message ?? "ChangeEmail.changeFailed".tr(),
+      );
     }
   }
 }

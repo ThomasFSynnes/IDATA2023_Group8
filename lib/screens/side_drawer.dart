@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
+import 'package:user_manuals_app/screens/settings/change_email.dart';
 import 'package:user_manuals_app/screens/settings/change_password.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
+import 'package:user_manuals_app/screens/settings/userPage.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
 import 'package:user_manuals_app/widgets/menu_button.dart';
@@ -137,8 +139,8 @@ class _SideDrawerState extends State<SideDrawer> {
                     children: [
                       MenuButton(
                         navigateTo: MaterialPageRoute(
-                            builder: (context) => const ChangePasswordScreen()),
-                        title: "sideDrawer.buttons.change".tr(),
+                            builder: (context) => const UserPage()),
+                        title: "sideDrawer.text.UserPage".tr(),
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
                         icon: const Icon(Icons.person, color: Colors.black54),
                       ),
