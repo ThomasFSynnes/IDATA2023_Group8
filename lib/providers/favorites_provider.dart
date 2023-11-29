@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/model/product.dart';
 
+//Used 
 class FavoritesNotifier extends StateNotifier<List<Product>>{
   FavoritesNotifier() : super(userFavorits);
 
@@ -13,8 +14,6 @@ class FavoritesNotifier extends StateNotifier<List<Product>>{
     else {
       state = [...state, item];
     }
-    
-    //state = [];
     
     print(state);
   }

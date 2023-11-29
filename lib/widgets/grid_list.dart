@@ -26,12 +26,6 @@ class _GridList extends ConsumerState<GridList>{
   Widget build(BuildContext context) {
     if (widget.list == userFavorits){
       List providedList = ref.watch(favorites);
-      
-      print("Provider test:");
-      print("providedList:");
-      print(providedList);
-      print("userFavorites"); 
-      print(userFavorits);
 
       return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
