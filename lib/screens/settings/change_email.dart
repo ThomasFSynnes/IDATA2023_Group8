@@ -40,15 +40,20 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+                keyboardType: TextInputType.emailAddress,
+                autocorrect: false,
+                textCapitalization: TextCapitalization.none,
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                 decoration: InputDecoration(
                     labelText: "ChangeEmail.newEmail".tr(),
                     labelStyle: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                     )),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
+                  if (value == null ||
+                      value.trim().isEmpty ||
+                      !value.contains("@")) {
                     return "ChangeEmail.pleaseEnterEmail".tr();
                   }
                   return null;
@@ -60,8 +65,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 },
               ),
               TextFormField(
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer),
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                 decoration: InputDecoration(
                   labelText: "ChangeEmail.password".tr(),
                   labelStyle: TextStyle(
@@ -72,7 +77,10 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "ChangeEmail.pleaseEnterPass".tr();
+                  } else if (value.trim().length < 6) {
+                    return "SignUp.passwordError".tr();
                   }
+
                   return null;
                 },
                 onChanged: (value) {

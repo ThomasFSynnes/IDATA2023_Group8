@@ -147,7 +147,7 @@ class _SideDrawerState extends State<SideDrawer> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                Theme.of(context).colorScheme.error),
+                                Theme.of(context).colorScheme.onErrorContainer),
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
                           favorits.clear();

@@ -41,7 +41,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             children: [
               TextFormField(
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 decoration: InputDecoration(
                   labelText: "ChangePassword.oldPassword".tr(),
@@ -64,7 +64,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               ),
               TextFormField(
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSecondary,
+                  color: Theme.of(context).colorScheme.onPrimary,
                 ),
                 decoration: InputDecoration(
                   labelText: "ChangePassword.newPassword".tr(),
@@ -76,6 +76,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "ChangePassword.pleaseNew".tr();
+                  } else if (value.trim().length < 6) {
+                    return "SignUp.passwordError".tr();
                   }
                   return null;
                 },

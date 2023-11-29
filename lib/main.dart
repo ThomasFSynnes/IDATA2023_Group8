@@ -16,6 +16,8 @@ final theme = ThemeData(
     onSecondary: const Color(0xFFABD1C6),
     onPrimaryContainer: const Color(0xFFE8E4E6),
     onSecondaryContainer: const Color(0xffF9BC60),
+    error: const Color.fromARGB(255, 206, 78, 39),
+    onErrorContainer: const Color.fromARGB(255, 219, 142, 118),
   ),
   textTheme: const TextTheme(
       titleMedium: TextStyle(
