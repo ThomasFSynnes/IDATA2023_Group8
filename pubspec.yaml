@@ -36,5 +36,4 @@ flutter:
   assets:
     - assets/categories/
     - assets/manufacture/
-    - assets/products/
     - assets/translations/
