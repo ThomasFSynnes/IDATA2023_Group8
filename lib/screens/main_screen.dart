@@ -22,9 +22,6 @@ class MainPage extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.onSecondary,
           body: SingleChildScrollView(
             child: Column(children: [
-              const SizedBox(
-                height: 50, //TODO: ADD SEARCH WIDGET
-              ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(
                     18, 10, 0, 0), // Adjust the left padding as needed
@@ -124,7 +121,6 @@ class MainPage extends StatelessWidget {
               color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
-          //Todo: Bug, app crashes when opening drawer by swiping.
           drawer: const SideDrawer(),
         );
       },
