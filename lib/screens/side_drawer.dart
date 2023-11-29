@@ -94,8 +94,8 @@ class _SideDrawerState extends State<SideDrawer> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (ctx) => ProductsScreen(
-                                products: favorits,
-                                pageTitle: "sideDrawer.buttons.favourites".tr(),
+                                products: userFavorits,
+                                pageTitle: "sideDrawer.buttons.favorites".tr(),
                                 image: "",
                               ),
                             ),
@@ -106,7 +106,7 @@ class _SideDrawerState extends State<SideDrawer> {
                             const Icon(Icons.star, color: Colors.black54),
                             const SizedBox(width: 8),
                             Text(
-                              "sideDrawer.buttons.favourites".tr(),
+                              "sideDrawer.buttons.favorites".tr(),
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ],
@@ -148,7 +148,7 @@ class _SideDrawerState extends State<SideDrawer> {
                                 Theme.of(context).colorScheme.onErrorContainer),
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
-                          favorits.clear();
+                          userFavorits.clear();
                         },
                         child: Row(
                           children: [

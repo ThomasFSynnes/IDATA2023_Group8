@@ -4,7 +4,7 @@ import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/model/product.dart';
 
 class FavoritesNotifier extends StateNotifier<List<Product>>{
-  FavoritesNotifier() : super(favorits);
+  FavoritesNotifier() : super(userFavorits);
 
   void toggleFavoriteStatus(Product item){
     if (state.contains(item)){
@@ -14,7 +14,9 @@ class FavoritesNotifier extends StateNotifier<List<Product>>{
       state = [...state, item];
     }
     
-    state = [];
+    //state = [];
+    
+    print(state);
   }
 
 }

@@ -43,7 +43,7 @@
             "UserPage":"User Page"
         },
         "buttons": {
-            "favourites": "Favourites",
+            "favorites": "Favorites",
             "change": "Change Password",
             "login": "Sign up/Login",
             "logout": "Logout",

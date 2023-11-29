@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/providers/favorites_provider.dart';
 
 /// A class that handels the database.
 ///
-class DatabaseManager {
+class DatabaseManager{
   final database = FirebaseFirestore.instance;
   final keyUserFavorites = "usersFavorites";
   final keyProducts = "products";
@@ -23,7 +25,6 @@ class DatabaseManager {
   //Create an empty list in the DB
   createFavorites() {
     if (FirebaseAuth.instance.currentUser == null) return;
-
     User user = FirebaseAuth.instance.currentUser!;
     Map<String, dynamic> addThis = {
       "favoritesIdList": FieldValue.arrayUnion([])
@@ -34,27 +35,29 @@ class DatabaseManager {
   //Add an item to  favorites
   addFavorites(Product product) {
     if (FirebaseAuth.instance.currentUser == null) return;
-
-    favorits.add(product);
+    //userFavorits.add(product);
+    favorites;
 
     User user = FirebaseAuth.instance.currentUser!;
     Map<String, dynamic> addThis = {
       "favoritesIdList": FieldValue.arrayUnion([product.id])
     };
     database.collection(keyUserFavorites).doc(user.uid).update(addThis);
+
   }
 
   //Remove an item from favorites
   removeFavorites(Product product) {
     if (FirebaseAuth.instance.currentUser == null) return;
 
-    favorits.remove(product);
+    //userFavorits.remove(product);
 
     User user = FirebaseAuth.instance.currentUser!;
     Map<String, dynamic> addThis = {
       "favoritesIdList": FieldValue.arrayRemove([product.id])
     };
     database.collection(keyUserFavorites).doc(user.uid).update(addThis);
+    
   }
 
   //get all favorites from for a given user.
@@ -72,12 +75,12 @@ class DatabaseManager {
       Map<String, dynamic> data =
           documentSnapshot.data() as Map<String, dynamic>;
       List test = List.from(data["favoritesIdList"]);
-      favorits = products
+      userFavorits = products
           .where((Product product) => test.contains(product.id))
           .toList();
     });
 
-    return favorits;
+    return userFavorits;
   }
 
   //Converts a database Querry to a List of Products.

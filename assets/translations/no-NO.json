@@ -43,7 +43,7 @@
             "UserPage":"Bruker Side"
         },
         "buttons": {
-            "favourites": "Favoritter",
+            "favorites": "Favoritter",
             "change": "Bytt passord",
             "login": "Registrer/Logg inn",
             "logout": "Logout",

@@ -15,7 +15,7 @@ class ProductScreen extends StatelessWidget {
     super.key,
     required this.item,
   });
-
+  
   final Product item;
   final DatabaseManager db = DatabaseManager();
 
