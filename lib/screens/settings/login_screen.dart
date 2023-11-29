@@ -154,7 +154,7 @@ class _LoginScreen extends State<LoginScreen> {
                     _isLogin ? "SignUp.login".tr() : "SignUp.signUp".tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ), //todo: tr
+                ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

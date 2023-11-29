@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/screens/new_manual.dart';
-import 'package:user_manuals_app/screens/settings/change_email.dart';
-import 'package:user_manuals_app/screens/settings/change_password.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/settings/localization.dart';
 import 'package:user_manuals_app/screens/settings/login_screen.dart';
