@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/model/product.dart';
+import 'package:user_manuals_app/screens/edit_manual.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:user_manuals_app/widgets/PDFWidget.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,7 +18,7 @@ class ProductScreen extends StatelessWidget {
     super.key,
     required this.item,
   });
-  
+
   final Product item;
   final DatabaseManager db = DatabaseManager();
 
@@ -105,9 +108,28 @@ class ProductScreen extends StatelessWidget {
           title:
               Text(item.title, style: Theme.of(context).textTheme.titleLarge),
           actions: [
+            // Edit product if user is logged in.
+            if (FirebaseAuth.instance.currentUser != null)
+            IconButton(
+              onPressed: () async {
+                final newProduct = await Navigator.of(context).push<Product>(
+                  MaterialPageRoute(
+                    builder: (ctx) => EditManual(product: item,),
+                  ),
+                );
+
+                if (newProduct != null) {
+                    products.remove(item);
+                    products.add(newProduct);
+                    DatabaseManager().updateProduct(newProduct);
+                }
+              },
+              icon: const Icon(Icons.edit),
+            ),
+            if (FirebaseAuth.instance.currentUser != null)
             FavoritesButton(
               item: item,
-            )
+            ),
           ],
         ),
         body: Column(

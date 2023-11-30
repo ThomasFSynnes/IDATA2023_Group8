@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/model/category.dart';
@@ -17,9 +16,14 @@ class DatabaseManager{
   final Stream<QuerySnapshot> _favoritsStream = 
     FirebaseFirestore.instance.collection("usersFavorites").snapshots();
 
-  //Adds a product to database
+  // Adds a product to database
   addProduct(Product product) {
     database.collection(keyProducts).doc().set(product.toFirestore());
+  }
+
+  // Update a product in the database
+  updateProduct(Product product){
+    database.collection(keyProducts).doc(product.id).update(product.toFirestore());
   }
 
   //Create an empty list in the DB
@@ -49,8 +53,6 @@ class DatabaseManager{
   //Remove an item from favorites
   removeFavorites(Product product) {
     if (FirebaseAuth.instance.currentUser == null) return;
-
-    //userFavorits.remove(product);
 
     User user = FirebaseAuth.instance.currentUser!;
     Map<String, dynamic> addThis = {
@@ -128,7 +130,6 @@ class DatabaseManager{
     });
   }
 
-  //Untested workaround. Firebase do not support filter by search.
   //Untested workaround. Firebase do not support filter by search.
   findProductsByTitle(String searchText) {
     return database
