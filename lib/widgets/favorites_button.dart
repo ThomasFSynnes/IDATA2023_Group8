@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/providers/favorites_provider.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
+
+//TODO: ADD MORE COMMENTS
 
 class FavoritesButton extends ConsumerStatefulWidget {
   const FavoritesButton({

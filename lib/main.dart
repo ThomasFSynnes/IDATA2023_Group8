@@ -7,6 +7,8 @@ import 'package:user_manuals_app/util/database_manager.dart';
 import 'firebase_options.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+//TODO: ADD MORE COMMENTS
+
 final theme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
@@ -18,7 +20,6 @@ final theme = ThemeData(
     onSecondaryContainer: const Color(0xffF9BC60),
     error: const Color.fromARGB(255, 206, 78, 39),
     onErrorContainer: const Color.fromARGB(255, 219, 142, 118),
-    
   ),
   textTheme: const TextTheme(
       titleMedium: TextStyle(

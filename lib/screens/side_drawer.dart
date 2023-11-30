@@ -14,6 +14,8 @@ import 'package:user_manuals_app/widgets/menu_button.dart';
 
 import 'package:user_manuals_app/model/product.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class SideDrawer extends StatefulWidget {
   const SideDrawer({super.key});
 

@@ -4,6 +4,8 @@ import 'package:user_manuals_app/data/manufacturers.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class Product {
   const Product({
     required this.id,

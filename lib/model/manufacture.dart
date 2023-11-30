@@ -1,3 +1,5 @@
+//TODO: ADD MORE COMMENTS
+
 class Manufacture {
   const Manufacture(
       {required this.id,

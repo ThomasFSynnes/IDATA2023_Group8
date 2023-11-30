@@ -10,6 +10,8 @@ import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/side_drawer.dart';
 import 'package:user_manuals_app/widgets/horizontal_list.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 

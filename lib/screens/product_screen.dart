@@ -10,12 +10,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:user_manuals_app/widgets/favorites_button.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class ProductScreen extends StatelessWidget {
   ProductScreen({
     super.key,
     required this.item,
   });
-  
+
   final Product item;
   final DatabaseManager db = DatabaseManager();
 
@@ -116,7 +118,7 @@ class ProductScreen extends StatelessWidget {
               child: Container(
                 color: Theme.of(context).colorScheme.onSecondary,
                 width: double.infinity,
-                height: 300, // Set your desired height here
+                height: 300,
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: ClipRRect(

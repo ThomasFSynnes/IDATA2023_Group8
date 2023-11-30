@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/widgets/display_card.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class HorizontalList extends StatelessWidget {
   const HorizontalList({
     super.key,

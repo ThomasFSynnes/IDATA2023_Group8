@@ -6,6 +6,8 @@ import 'package:user_manuals_app/screens/settings/change_password.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
+//TODO: ADD MORE COMMENTS
+
 User? user = FirebaseAuth.instance.currentUser;
 String userEmail = user?.email ?? "";
 

@@ -1,5 +1,7 @@
 import 'package:user_manuals_app/model/manufacture.dart';
 
+//TODO: ADD MORE COMMENTS
+
 const manufactures = {
   Manufacturers.apple: Manufacture(
       id: 'm1',

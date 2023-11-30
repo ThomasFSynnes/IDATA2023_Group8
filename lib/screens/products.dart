@@ -4,6 +4,8 @@ import 'package:user_manuals_app/widgets/grid_list.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:user_manuals_app/widgets/product_seach_deligate.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen(
       {super.key,
@@ -54,13 +56,13 @@ class ProductsScreen extends StatelessWidget {
         actions: [
           // can search if list has items and items is Product
           if (products.isNotEmpty && products.first is Product)
-          IconButton(
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: ProductSeachDeligate(searchList: products));
-              },
-              icon: Icon(Icons.search)),
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context,
+                      delegate: ProductSeachDeligate(searchList: products));
+                },
+                icon: Icon(Icons.search)),
         ],
       ),
       body: Column(

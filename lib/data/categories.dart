@@ -1,5 +1,7 @@
 import 'package:user_manuals_app/model/category.dart';
 
+//TODO: ADD MORE COMMENTS
+
 const categories = {
   Categories.smartPhones: Category(
       id: 'c1',

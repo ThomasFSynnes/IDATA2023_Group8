@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class MenuButton extends StatelessWidget {
   const MenuButton(
       {super.key,

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/products.dart';
 import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/model/category.dart';
@@ -10,12 +9,10 @@ import 'package:user_manuals_app/providers/favorites_provider.dart';
 
 /// A class that handels the database.
 ///
-class DatabaseManager{
+class DatabaseManager {
   final database = FirebaseFirestore.instance;
   final keyUserFavorites = "usersFavorites";
   final keyProducts = "products";
-  final Stream<QuerySnapshot> _favoritsStream = 
-    FirebaseFirestore.instance.collection("usersFavorites").snapshots();
 
   //Adds a product to database
   addProduct(Product product) {
@@ -43,7 +40,6 @@ class DatabaseManager{
       "favoritesIdList": FieldValue.arrayUnion([product.id])
     };
     database.collection(keyUserFavorites).doc(user.uid).update(addThis);
-
   }
 
   //Remove an item from favorites
@@ -57,15 +53,12 @@ class DatabaseManager{
       "favoritesIdList": FieldValue.arrayRemove([product.id])
     };
     database.collection(keyUserFavorites).doc(user.uid).update(addThis);
-    
   }
 
   //get all favorites from for a given user.
   Future<List<Product>> syncFavorites() async {
     if (FirebaseAuth.instance.currentUser == null) return [];
     User user = FirebaseAuth.instance.currentUser!;
-    
-
 
     await database
         .collection(keyUserFavorites)
@@ -123,18 +116,8 @@ class DatabaseManager{
         .then((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
       for (var docSnapshot in querySnapshot.docs) {
         Product product = Product.fromFirestore(docSnapshot);
-        products.add(product); //Todo: Replace this.
+        products.add(product);
       }
     });
-  }
-
-  //Untested workaround. Firebase do not support filter by search.
-  //Untested workaround. Firebase do not support filter by search.
-  findProductsByTitle(String searchText) {
-    return database
-        .collection(keyProducts)
-        .where("title", isGreaterThanOrEqualTo: searchText)
-        .where("title", isLessThanOrEqualTo: "$searchText\uf7ff")
-        .get();
   }
 }

@@ -1,3 +1,5 @@
+//TODO: ADD MORE COMMENTS
+
 class Category {
   const Category(
       {required this.id,

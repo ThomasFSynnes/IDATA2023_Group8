@@ -7,6 +7,8 @@ import 'package:user_manuals_app/screens/product_screen.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class VerticalList extends StatelessWidget {
   final List items;
 

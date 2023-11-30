@@ -7,6 +7,8 @@ import 'package:user_manuals_app/screens/product_screen.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
+//TODO: ADD MORE COMMENTS
+
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
     super.key,
@@ -136,9 +138,6 @@ void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
 }
 
 void _selectCategory(BuildContext context, Category category) async {
-  /* List<Product> filteredProducts = products
-      .where((product) => product.category.id == category.id.toString())
-      .toList(); */
   // To store the ProductNotifier instance
   List<Product> filteredProducts =
       await DatabaseManager().getProductsByCategory(category.type);

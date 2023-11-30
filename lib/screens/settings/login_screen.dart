@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+//TODO: ADD MORE COMMENTS
+
 final _firebase = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +38,7 @@ class _LoginScreen extends State<LoginScreen> {
 
     if (_isLogin) {
       try {
-        final userCredential = await _firebase.signInWithEmailAndPassword(
+        await _firebase.signInWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
         EasyLoading.dismiss();
         EasyLoading.showSuccess(
@@ -52,7 +54,7 @@ class _LoginScreen extends State<LoginScreen> {
       }
     } else {
       try {
-        final userCredential = await _firebase.createUserWithEmailAndPassword(
+        await _firebase.createUserWithEmailAndPassword(
             email: _userEmail, password: _userPassword);
         EasyLoading.dismiss();
         EasyLoading.showSuccess(
@@ -132,7 +134,7 @@ class _LoginScreen extends State<LoginScreen> {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.trim().length < 6) {
-                      return "SignUp.passwordError".tr(); //todo: tr
+                      return "SignUp.passwordError".tr();
                     }
                   },
                   onSaved: (value) {
