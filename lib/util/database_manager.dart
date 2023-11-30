@@ -24,6 +24,12 @@ class DatabaseManager {
     database.collection(keyProducts).doc(product.id).update(product.toFirestore());
   }
 
+  // Delete a product from the database
+  removeProduct(Product product){
+    products.remove(product);
+    database.collection(keyProducts).doc(product.id).delete();
+  }
+
   //Create an empty list in the DB
   createFavorites() {
     if (FirebaseAuth.instance.currentUser == null) return;

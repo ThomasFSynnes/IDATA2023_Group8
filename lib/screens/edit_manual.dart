@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/data/manufacturers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,6 +12,10 @@ import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:user_manuals_app/util/database_manager.dart';
+
+/// Lets the user eddit or remove an existing manual.
+/// Returns a new manual with same ID as the original.
 
 class EditManual extends StatefulWidget {
   const EditManual({
@@ -34,8 +40,11 @@ class _EditManualState extends State<EditManual> {
   String? _enteredmodelNumber = '';
   String imagePath = "";
   String pdfPath = "";
-  File? _imageFile = null;
-  File? _pdfFile = null;
+  File? _imageFile;
+  File? _pdfFile;
+
+  String _removeText = "Delete";
+  bool _removeConfirm = false;
 
   // Function to handle image pick from gallery
   Future<void> _pickImage() async {
@@ -50,6 +59,7 @@ class _EditManualState extends State<EditManual> {
     }
   }
 
+  // Function to handle PDF pick from files
   Future<void> _pickPDF() async {
     EasyLoading.dismiss();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -64,6 +74,7 @@ class _EditManualState extends State<EditManual> {
     }
   }
 
+  // Save the edited manual and returns it. 
   void _saveItem() async {
     EasyLoading.show(status: 'loading...');
     if (_formKey.currentState!.validate()) {
@@ -98,6 +109,7 @@ class _EditManualState extends State<EditManual> {
     EasyLoading.dismiss();
   }
 
+  //Method for uploading image to FireStore and return download URL
   Future<String> _uploadImage() async {
     try {
       if (_imageFile == null) {
@@ -119,6 +131,7 @@ class _EditManualState extends State<EditManual> {
     }
   }
 
+  //Method for uploading PDF to FireStore and return download URL
   Future<String> _uploadFile(File? file) async {
     if (file == null) {
       return ''; // Return an empty string or handle accordingly if no file is selected
@@ -131,6 +144,19 @@ class _EditManualState extends State<EditManual> {
     await storageReference.putFile(file);
 
     return await storageReference.getDownloadURL();
+  }
+
+  void _deleteProduct(){
+    if (_removeConfirm){
+      DatabaseManager().removeProduct(widget.product);
+      Navigator.of(context).pop();
+    }
+    else {
+      setState(() {
+        _removeConfirm = true;
+        _removeText = "Confirm Delete";
+      });
+    }
   }
 
   @override
@@ -356,6 +382,19 @@ class _EditManualState extends State<EditManual> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Semantics(
+                      label: 'Delete Product Button',
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onErrorContainer),
+                        onPressed: _deleteProduct,
+                        child: Text(_removeText,
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            )),
+                      ),
+                    ),
                     Semantics(
                       label: 'Reset Form Button',
                       child: TextButton(

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/widgets/grid_list.dart';
 
-//TODO: ADD MORE COMMENTS
+/// Search widget that lets the user search for products in a list of products my title,
+/// and displays the result in a grid view. 
 
 class ProductSeachDeligate extends SearchDelegate {
   ProductSeachDeligate({required this.searchList});
 
-  final List searchList;
+  final List searchList; // The list of items to search through. 
 
   @override
   List<Widget>? buildActions(BuildContext context) {

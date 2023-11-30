@@ -121,27 +121,29 @@ class ProductScreen extends StatelessWidget {
           actions: [
             // Edit product if user is logged in.
             if (FirebaseAuth.instance.currentUser != null)
-            IconButton(
-              onPressed: () async {
-                final newProduct = await Navigator.of(context).push<Product>(
-                  MaterialPageRoute(
-                    builder: (ctx) => EditManual(product: item,),
-                  ),
-                );
+              IconButton(
+                onPressed: () async {
+                  final newProduct = await Navigator.of(context).push<Product>(
+                    MaterialPageRoute(
+                      builder: (ctx) => EditManual(
+                        product: item,
+                      ),
+                    ),
+                  );
 
-                if (newProduct != null) {
-                    products.remove(item);
-                    products.add(newProduct);
-                    DatabaseManager().updateProduct(newProduct);
-                }
-              },
-              icon: const Icon(Icons.edit),
-            ),
+                  if (newProduct != null) {
+                    products.remove(item); // remove old Product
+                    products.add(newProduct); // add new product
+                    DatabaseManager().updateProduct(newProduct); // update in the Database. 
+                  }
+                },
+                icon: const Icon(Icons.edit),
+              ),
             if (FirebaseAuth.instance.currentUser != null)
-            FavoritesButton(
-              //favourites button to add product to favourites
-              item: item,
-            ),
+              FavoritesButton(
+                //favourites button to add product to favourites
+                item: item,
+              ),
           ],
         ),
         body: Column(
