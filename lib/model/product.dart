@@ -4,6 +4,19 @@ import 'package:user_manuals_app/data/manufacturers.dart';
 import 'package:user_manuals_app/model/category.dart';
 import 'package:user_manuals_app/model/manufacture.dart';
 
+//**
+// Class representing products
+//
+// id: Represents a unique identifier for each product
+// category: referes to the category this product belongs to
+// manufacture: referes to the manufacturer this product belongs to
+// title: Describes the name or title of the manufacturer (e.g., "iPhone 7").
+// imageUrl: Refers to the URL or path pointing to the image associated with the product
+// pdfUrl: Refers to the URL or path pointing to the PDF/UserManual associated with the product
+// modelNumber: Optional field for model number for the product
+// releaseYear: Optional field for release year for the product
+// */
+
 class Product {
   const Product({
     required this.id,

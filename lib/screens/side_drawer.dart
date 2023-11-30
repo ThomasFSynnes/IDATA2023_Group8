@@ -14,6 +14,12 @@ import 'package:user_manuals_app/widgets/menu_button.dart';
 
 import 'package:user_manuals_app/model/product.dart';
 
+//**
+// Flutter page for side drawer
+// Changes depending on if the user is logged in or not
+//
+// */
+
 class SideDrawer extends StatefulWidget {
   const SideDrawer({super.key});
 
@@ -34,6 +40,7 @@ class _SideDrawerState extends State<SideDrawer> {
           children: [
             const SizedBox(height: 32),
             MenuButton(
+              //localization button always available no matter the state
               color: Theme.of(context).colorScheme.onPrimaryContainer,
               navigateTo:
                   MaterialPageRoute(builder: (ctx) => const Localization()),
@@ -41,7 +48,8 @@ class _SideDrawerState extends State<SideDrawer> {
               icon: const Icon(Icons.language, color: Colors.black54),
             ),
             const SizedBox(height: 16),
-            //Show different button based on login state.
+            //Show different depending on login sate
+            // Shows favourites and add new manual button if logged in
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -115,7 +123,7 @@ class _SideDrawerState extends State<SideDrawer> {
                     ],
                   );
                 } else {
-                  //login button
+                  //Returns a text if not logged in telling the user to log in / register to gain access to these features
                   return Text(
                     "sideDrawer.buttons.upload".tr(),
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -127,8 +135,11 @@ class _SideDrawerState extends State<SideDrawer> {
               },
             ),
 
-            //Show different button based on login state.
+            //adds some space between
             const Spacer(),
+
+            //Show different button based on login state.
+            //shows log out and user page button if logged in
             StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -163,9 +174,8 @@ class _SideDrawerState extends State<SideDrawer> {
                       ),
                     ],
                   );
-                  //logout button
                 } else {
-                  //login button
+                  //shows log in/register button if not logged in
                   return MenuButton(
                     color: Theme.of(context).colorScheme.onSecondaryContainer,
                     navigateTo: MaterialPageRoute(

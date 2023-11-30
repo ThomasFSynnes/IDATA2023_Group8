@@ -10,6 +10,14 @@ import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/screens/side_drawer.dart';
 import 'package:user_manuals_app/widgets/horizontal_list.dart';
 
+//**
+// Flutter page for Main Page of the app
+//
+// It has three horizontal lists (Products, Manufacture and Category) with buttons for "See All" that redirects to another page
+//
+//
+// */
+
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 

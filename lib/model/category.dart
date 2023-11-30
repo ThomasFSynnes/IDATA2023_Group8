@@ -1,3 +1,12 @@
+//**
+// Class representing categories for products
+//
+// id: Represents a unique identifier for each category.
+// title: Describes the name or title of the category (e.g., "Smart Phones").
+// imageUrl: Refers to the URL or path pointing to the image associated with the category.
+// type: Indicates the specific type of the category, utilizing the Categories enum.
+// */
+
 class Category {
   const Category(
       {required this.id,

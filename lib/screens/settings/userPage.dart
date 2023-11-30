@@ -6,8 +6,13 @@ import 'package:user_manuals_app/screens/settings/change_password.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-User? user = FirebaseAuth.instance.currentUser;
-String userEmail = user?.email ?? "";
+//**
+// Flutter page for user page
+// Greets the user and gives them option to change email and password
+// */
+
+User? user = FirebaseAuth.instance.currentUser; //gets current user
+String userEmail = user?.email ?? ""; //gets email for greeting
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -33,13 +38,14 @@ class UserPage extends StatelessWidget {
               height: 24,
             ),
             Text(
-              'Hello, $userEmail!',
+              'Hello, $userEmail!', //currently a bug that if you change email, you have to re-log for this to update
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(
               height: 24,
             ),
             Container(
+              //container used to resize and hold the buttons for change password and change email
               width: 300,
               child: Column(children: [
                 MenuButton(

@@ -4,6 +4,12 @@ import 'package:user_manuals_app/widgets/grid_list.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:user_manuals_app/widgets/product_seach_deligate.dart';
 
+//**
+// Flutter page for a displaying products
+//
+// BUT is also used for listing Manufacturer and Category
+// */
+
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen(
       {super.key,
@@ -18,7 +24,7 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (products.isEmpty) {
-      // Handle the case when the products list is empty.
+      // Handle the case when the products list is empty and shows a message
       return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         appBar: AppBar(
@@ -44,6 +50,8 @@ class ProductsScreen extends StatelessWidget {
       );
     }
 
+    //Else displays products
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onSecondary,
       appBar: AppBar(
@@ -54,13 +62,13 @@ class ProductsScreen extends StatelessWidget {
         actions: [
           // can search if list has items and items is Product
           if (products.isNotEmpty && products.first is Product)
-          IconButton(
-              onPressed: () {
-                showSearch(
-                    context: context,
-                    delegate: ProductSeachDeligate(searchList: products));
-              },
-              icon: Icon(Icons.search)),
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context,
+                      delegate: ProductSeachDeligate(searchList: products));
+                },
+                icon: const Icon(Icons.search)),
         ],
       ),
       body: Column(
@@ -70,6 +78,7 @@ class ProductsScreen extends StatelessWidget {
           ),
           Row(
             children: [
+              //LOGIC USED ONLY FOR MANUFACTURER/CATEGORIES
               if (image.isNotEmpty) ...{
                 Container(height: 70, width: 70, child: Image.asset(image)),
               } else ...{

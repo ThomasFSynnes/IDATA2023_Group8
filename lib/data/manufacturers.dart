@@ -1,5 +1,12 @@
 import 'package:user_manuals_app/model/manufacture.dart';
 
+//**
+// Data for local manufacturers
+//
+// */
+
+// Add other Manufacturers as needed
+
 const manufactures = {
   Manufacturers.apple: Manufacture(
       id: 'm1',
