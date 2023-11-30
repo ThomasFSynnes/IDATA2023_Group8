@@ -1,6 +1,11 @@
 import 'package:user_manuals_app/model/category.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Data for local categories
+//
+// */
+
+// Add other Categories as needed
 
 const categories = {
   Categories.smartPhones: Category(
@@ -66,7 +71,6 @@ List<Categories> categoriesList = [
   Categories.tablets,
   Categories.fridge,
   Categories.others
-  // Add other Manufacturers values as needed
 ];
 
 List<Category> categoryObjects = categoriesList.map((category) {

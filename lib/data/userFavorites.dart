@@ -1,5 +1,7 @@
 import 'package:user_manuals_app/model/product.dart';
 
-List<Product> userFavorits = [];
+//**
+// List for use with favourites
+// */
 
-//TODO: ADD MORE COMMENTS
+List<Product> userFavorits = [];

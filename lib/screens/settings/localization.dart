@@ -1,7 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter page for changing app language
+//
+// Uses the package EasyLocalization changes between the translation json files for en-US or no-NO
+// More could be added in the future
+//
+// */
 
 class Localization extends StatelessWidget {
   const Localization({super.key});

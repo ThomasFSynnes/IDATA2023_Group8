@@ -4,7 +4,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter page for login/sign up
+//
+//
+// */
 
 final _firebase = FirebaseAuth.instance;
 
@@ -20,9 +24,16 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   final _form = GlobalKey<FormState>();
 
-  var _isLogin = true;
-  var _userEmail = "";
-  var _userPassword = "";
+  var _isLogin =
+      true; //Boolean for which page to show (sign up or login) defaults to login when true and sign up when false
+  var _userEmail = ""; //User email used for sign up/sign in
+  var _userPassword = ""; //User password used for sign up/sign in
+
+  //**
+  // Form submit for login/sign up
+  // if _isLogin is true will submit a sign in request
+  // else if _isLogin is false will create a new user with the submited email and password
+  // */
 
   void submit() async {
     EasyLoading.show(status: 'loading...');

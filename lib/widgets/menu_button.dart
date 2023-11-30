@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter widget for menu buttons
+// a elevated button with styling, takes title, icon, color and navigate to
+// */
 
 class MenuButton extends StatelessWidget {
   const MenuButton(
       {super.key,
-      required this.navigateTo,
-      required this.title,
-      required this.icon,
-      required this.color});
+      required this.navigateTo, //page to navigate to
+      required this.title, //text for button
+      required this.icon, //icon for button
+      required this.color}); //color of button
 
   final MaterialPageRoute navigateTo;
   final String title;

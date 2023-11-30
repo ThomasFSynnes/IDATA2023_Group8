@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:user_manuals_app/widgets/display_card.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter widget for displaying display cards in a horizontal list
+// gets list of items (product, manufacture, category) then displays them in a horizontally scrollable list
+// */
 
 class HorizontalList extends StatelessWidget {
   const HorizontalList({

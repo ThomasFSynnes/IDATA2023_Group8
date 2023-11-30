@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-//TODO: ADD MORE COMMENTS
+//Flutter page for changing user email
 
 class ChangeEmailPage extends StatefulWidget {
   const ChangeEmailPage({super.key});
@@ -15,8 +15,8 @@ class ChangeEmailPage extends StatefulWidget {
 class _ChangeEmailPageState extends State<ChangeEmailPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _newEmail = "";
-  String _password = "";
+  String _newEmail = ""; //New email to be used
+  String _password = ""; //password used to reauthenticate
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +42,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
+                //input for new email
                 keyboardType: TextInputType.emailAddress,
                 autocorrect: false,
                 textCapitalization: TextCapitalization.none,
@@ -53,6 +54,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                       color: Theme.of(context).colorScheme.onPrimary,
                     )),
                 validator: (value) {
+                  //validate new email
                   if (value == null ||
                       value.trim().isEmpty ||
                       !value.contains("@")) {
@@ -67,6 +69,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 },
               ),
               TextFormField(
+                //input for password
                 style:
                     TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                 decoration: InputDecoration(
@@ -78,6 +81,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
+                    //validate that password has been entered and is 6 characters or more which is the minimum
                     return "ChangeEmail.pleaseEnterPass".tr();
                   } else if (value.trim().length < 6) {
                     return "SignUp.passwordError".tr();
@@ -101,6 +105,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    //validate form and run changeEmail logic
                     _changeEmail();
                   }
                 },
@@ -115,6 +120,15 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       ),
     );
   }
+
+  //**
+  // Method for changing user email
+  //
+  // Gets old email from auth and gets new email from the form
+  // Asks user to enter password for security reasons when changing email and since we need to reauthenticate
+  // Changes email gives user feedback using EasyLoading popup messages
+  //
+  // */
 
   Future<void> _changeEmail() async {
     try {

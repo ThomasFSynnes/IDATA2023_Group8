@@ -5,7 +5,10 @@ import 'package:user_manuals_app/model/product.dart';
 import 'package:user_manuals_app/providers/favorites_provider.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter widget for favourites button
+//  Lets user add or remove a product to their favourites list
+// */
 
 class FavoritesButton extends ConsumerStatefulWidget {
   const FavoritesButton({
@@ -26,6 +29,7 @@ class _FavoritesButton extends ConsumerState<FavoritesButton> {
   Widget build(BuildContext context) {
     bool isFavorite = ref.read(favorites).contains(widget.item);
 
+    //method for adding to favourites
     addFavorites() async {
       await db.addFavorites(widget.item);
       ref.read(favorites.notifier).toggleFavoriteStatus(widget.item);
@@ -34,6 +38,7 @@ class _FavoritesButton extends ConsumerState<FavoritesButton> {
       });
     }
 
+    //method for removing from favourites
     removeFavorites() async {
       await db.removeFavorites(widget.item);
       ref.read(favorites.notifier).toggleFavoriteStatus(widget.item);
@@ -42,6 +47,7 @@ class _FavoritesButton extends ConsumerState<FavoritesButton> {
       });
     }
 
+    //changes icon depending on if product is favourite or not
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {

@@ -7,8 +7,13 @@ import 'package:user_manuals_app/util/database_manager.dart';
 import 'firebase_options.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Entry point for app
+// Defines theme, ensures components are initialized, gets data from database and displays the main page
+//
+// */
 
+//defining the theme for the APP both color and text theme
 final theme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
@@ -48,19 +53,24 @@ final theme = ThemeData(
 );
 
 void main() async {
-  //used for localization
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await DatabaseManager().getAllProducts(); //Get data from database
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Initialization tasks before running the app
+  await EasyLocalization
+      .ensureInitialized(); // Ensure EasyLocalization is initialized for translations
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions
+          .currentPlatform); // Initialize Firebase with options from FirebaseOptions.currentPlatform
+  await DatabaseManager()
+      .getAllProducts(); // Fetch data from the database using DatabaseManager
 
   runApp(
     EasyLocalization(
+      // Initialize EasyLocalization for multi-language support
       supportedLocales: const [
         Locale("en", "US"),
         Locale("no", "NO"),
       ],
-      path: "assets/translations",
+      path: "assets/translations", // Path to translation files
       fallbackLocale: const Locale("en", "US"),
       child: const ProviderScope(
         child: App(),
@@ -69,18 +79,20 @@ void main() async {
   );
 }
 
+// Root widget for the application
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // MaterialApp that configures the app with EasyLocalization, theme, and initial route
     return MaterialApp(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: theme,
-      builder: EasyLoading.init(),
-      home: const MainPage(),
+      builder: EasyLoading.init(), // Initialize Flutter EasyLoading
+      home: const MainPage(), // Set the initial page as MainPage
     );
   }
 }

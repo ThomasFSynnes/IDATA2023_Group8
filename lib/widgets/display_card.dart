@@ -7,7 +7,11 @@ import 'package:user_manuals_app/screens/product_screen.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter widget for display card
+// it takes a dynamic item that can be product, manufacture or category then displays it
+// has different logic depending on what the dynamic item is
+// */
 
 class DisplayCard extends StatelessWidget {
   const DisplayCard({
@@ -37,14 +41,17 @@ class DisplayCard extends StatelessWidget {
                   // Navigate to the product page
                   _selectProduct(context, item);
                 } else if (item is Manufacture) {
+                  // Navigate to the manufacture page
                   _selectManufacturer(context, item);
                 } else if (item is Category) {
+                  // Navigate to the category page
                   _selectCategory(context, item);
                 }
               },
               child: Stack(
                 children: [
                   if (item is Product) ...{
+                    //if product load product image from firestore, gives user feedback with a loading bar if image is still loading
                     Image.network(
                       item.imageUrl,
                       width: constraints.maxWidth,
@@ -67,6 +74,7 @@ class DisplayCard extends StatelessWidget {
                       },
                     ),
                   } else ...{
+                    //else if the item is manufacturer or category loads the local image for those
                     Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -113,6 +121,7 @@ class DisplayCard extends StatelessWidget {
   }
 }
 
+//method for going to selected product screen
 void _selectProduct(BuildContext context, Product product) {
   Navigator.of(context).push(
     MaterialPageRoute(
@@ -121,6 +130,7 @@ void _selectProduct(BuildContext context, Product product) {
   );
 }
 
+//method for going to selected manufacture screen
 void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
   List<Product> filteredProducts = products
       .where((product) => product.manufacture.id == manufacturer.id.toString())
@@ -129,14 +139,16 @@ void _selectManufacturer(BuildContext context, Manufacture manufacturer) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (ctx) => ProductsScreen(
-        products: filteredProducts,
-        pageTitle: manufacturer.title,
-        image: manufacturer.imageUrl,
+        products:
+            filteredProducts, //gets filtered list of products for that manufacture
+        pageTitle: manufacturer.title, //sets title to manufacture title
+        image: manufacturer.imageUrl, //sets image to manufacture image
       ),
     ),
   );
 }
 
+//method for going to selected category screen
 void _selectCategory(BuildContext context, Category category) async {
   // To store the ProductNotifier instance
   List<Product> filteredProducts =
@@ -144,9 +156,10 @@ void _selectCategory(BuildContext context, Category category) async {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (ctx) => ProductsScreen(
-        products: filteredProducts,
-        pageTitle: category.title,
-        image: category.imageUrl,
+        products:
+            filteredProducts, //gets filtered list of products for that category
+        pageTitle: category.title, //sets title to categorytitle
+        image: category.imageUrl, //sets image to category image
       ),
     ),
   );

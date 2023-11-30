@@ -4,7 +4,10 @@ import 'package:user_manuals_app/data/userFavorites.dart';
 import 'package:user_manuals_app/providers/favorites_provider.dart';
 import 'package:user_manuals_app/widgets/display_card.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter widget for displaying display cards in a grid list
+// gets list of items (product, manufacture, category) then displays them in a grid with 2 card width
+// */
 
 class GridList extends ConsumerStatefulWidget {
   const GridList({

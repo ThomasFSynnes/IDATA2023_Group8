@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-//TODO: ADD MORE COMMENTS
+//Flutter page for changing user password
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -15,8 +15,8 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
-  String _oldPassword = '';
-  String _newPassword = '';
+  String _oldPassword = ''; //Current user password used to authenticate
+  String _newPassword = ''; //Password user want to change to
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +42,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
+                //input for old passsword
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
@@ -53,6 +54,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
                 obscureText: true,
                 validator: (value) {
+                  //validate to check if empty
                   if (value == null || value.isEmpty) {
                     return "ChangePassword.pleaseOld".tr();
                   }
@@ -65,6 +67,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 },
               ),
               TextFormField(
+                //input field for new password
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
@@ -76,6 +79,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
                 obscureText: true,
                 validator: (value) {
+                  //validate to give feedback if empty or less than 6 characters
                   if (value == null || value.isEmpty) {
                     return "ChangePassword.pleaseNew".tr();
                   } else if (value.trim().length < 6) {
@@ -90,6 +94,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 },
               ),
               TextFormField(
+                //Input field for Confirm new Password
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
@@ -102,6 +107,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 obscureText: true,
                 validator: (value) {
                   if (value != _newPassword) {
+                    //validate that Confirm New password equals New Password to lessen chance of user having typos in their new password
                     return "ChangePassword.noMatch".tr();
                   }
                   return null;
@@ -131,6 +137,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       ),
     );
   }
+
+  //**
+  // Method for changing user password
+  //
+  // Gets email from auth
+  // Gets new password from form which has been validated
+  // Changes password and gives user feedback using EasyLoading popup messages
+  //
+  // */
 
   Future<void> changePassword() async {
     try {

@@ -7,8 +7,10 @@ import 'package:user_manuals_app/screens/product_screen.dart';
 import 'package:user_manuals_app/screens/products.dart';
 import 'package:user_manuals_app/util/database_manager.dart';
 
-//TODO: ADD MORE COMMENTS
-
+//**
+// Flutter widget for displaying display cards in a vertically
+// gets list of items (product, manufacture, category) then displays them vertically
+// */
 class VerticalList extends StatelessWidget {
   final List items;
 

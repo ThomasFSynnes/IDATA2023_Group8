@@ -11,7 +11,10 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter page for a form to add new manual/product to the app
+//
+// */
 
 class NewManual extends StatefulWidget {
   const NewManual({super.key});
@@ -24,13 +27,15 @@ class NewManual extends StatefulWidget {
 
 class _NewManualState extends State<NewManual> {
   final _formKey = GlobalKey<FormState>();
-  var _enteredName = '';
-  var _selectedManufactures = manufactures[Manufacturers.others]!;
-  var _selectedCategory = categories[Categories.others]!;
-  String? _enteredreleaseYear = '';
-  String? _enteredmodelNumber = '';
-  File? _imageFile;
-  File? _pdfFile;
+  var _enteredName = ''; //Product name
+  var _selectedManufactures = manufactures[
+      Manufacturers.others]!; //Selected manufacturer (Defaults to: Other)
+  var _selectedCategory =
+      categories[Categories.others]!; //Selected Category (Defaults to: Other)
+  String? _enteredreleaseYear = ''; //Optional release year
+  String? _enteredmodelNumber = ''; //Optional model number
+  File? _imageFile; //Image file for product
+  File? _pdfFile; //PDF file for product
 
   // Function to handle image pick from gallery
   Future<void> _pickImage() async {
@@ -45,11 +50,12 @@ class _NewManualState extends State<NewManual> {
     }
   }
 
+// Function to handle PDF pick from files
   Future<void> _pickPDF() async {
     EasyLoading.dismiss();
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf'],
+      allowedExtensions: ['pdf'], //only allows pdf extension
     );
 
     if (result != null) {
@@ -74,7 +80,8 @@ class _NewManualState extends State<NewManual> {
       EasyLoading.dismiss();
       Navigator.of(context).pop(
         Product(
-          id: DateTime.now().toString(),
+          id: DateTime.now()
+              .toString(), //ID is DateTime.now (example: 2023-11-22 19:24:28.414463) Should be changed in the future
           title: _enteredName,
           category: _selectedCategory,
           manufacture: _selectedManufactures,
@@ -88,15 +95,15 @@ class _NewManualState extends State<NewManual> {
     EasyLoading.dismiss();
   }
 
+  //Method for uploading image to FireStore and return download URL
   Future<String> _uploadImage() async {
     try {
       if (_imageFile == null) {
         return ''; // Return an empty string or handle accordingly if no image is selected
       }
 
-      final Reference storageReference = FirebaseStorage.instance
-          .ref()
-          .child('images/${DateTime.now().toString()}');
+      final Reference storageReference = FirebaseStorage.instance.ref().child(
+          'images/${DateTime.now().toString()}'); //ID is DateTime.now (example: 2023-11-22 19:24:28.414463) Should be changed in the future
 
       await storageReference.putFile(_imageFile!);
 
@@ -109,14 +116,14 @@ class _NewManualState extends State<NewManual> {
     }
   }
 
+  //Method for uploading PDF to FireStore and return download URL
   Future<String> _uploadFile(File? file) async {
     if (file == null) {
       return ''; // Return an empty string or handle accordingly if no file is selected
     }
 
-    final Reference storageReference = FirebaseStorage.instance
-        .ref()
-        .child('files/${DateTime.now().toString()}');
+    final Reference storageReference = FirebaseStorage.instance.ref().child(
+        'files/${DateTime.now().toString()}'); //ID is DateTime.now (example: 2023-11-22 19:24:28.414463) Should be changed in the future
 
     await storageReference.putFile(file);
 
@@ -145,6 +152,7 @@ class _NewManualState extends State<NewManual> {
                 Semantics(
                   label: 'Product Name Input',
                   child: TextFormField(
+                    //input for Product name
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onBackground),
@@ -158,6 +166,7 @@ class _NewManualState extends State<NewManual> {
                       ),
                     ),
                     validator: (value) {
+                      //validates the product name which must be withing 0-50 length and not empty
                       if (value == null ||
                           value.isEmpty ||
                           value.trim().length <= 1 ||
@@ -180,6 +189,7 @@ class _NewManualState extends State<NewManual> {
                       child: Semantics(
                         label: 'Select Category Dropdown',
                         child: DropdownButtonFormField(
+                          //Drop down for category, defaults to other
                           iconEnabledColor:
                               Theme.of(context).colorScheme.onPrimary,
                           dropdownColor:
@@ -209,6 +219,7 @@ class _NewManualState extends State<NewManual> {
                       child: Semantics(
                         label: 'Select Manufacture Dropdown',
                         child: DropdownButtonFormField(
+                          //Drop down for manufacturer, defaults to other
                           iconEnabledColor:
                               Theme.of(context).colorScheme.onPrimary,
                           dropdownColor:
@@ -289,6 +300,7 @@ class _NewManualState extends State<NewManual> {
                 Semantics(
                   label: 'Pick Image Button',
                   child: ElevatedButton.icon(
+                    //button for image picker logic
                     onPressed: _pickImage,
                     icon: Icon(
                       Icons.image,
@@ -300,7 +312,7 @@ class _NewManualState extends State<NewManual> {
                   ),
                 ),
 
-                // Show selected image
+                // Show selected image under button
                 _imageFile != null
                     ? Image.file(
                         _imageFile!,
@@ -312,6 +324,7 @@ class _NewManualState extends State<NewManual> {
                 Semantics(
                   label: 'Pick PDF Button',
                   child: ElevatedButton.icon(
+                    //button for pdf picker logic
                     onPressed: _pickPDF,
                     icon: Icon(
                       Icons.picture_as_pdf,
@@ -322,7 +335,7 @@ class _NewManualState extends State<NewManual> {
                             color: Theme.of(context).colorScheme.onSecondary)),
                   ),
                 ),
-                // Show selected PDF file
+                // Show text that a PDF file has been selected
                 _pdfFile != null
                     ? Text(
                         "newManual.text.uplaodedPDF".tr(),
@@ -337,7 +350,9 @@ class _NewManualState extends State<NewManual> {
                     Semantics(
                       label: 'Reset Form Button',
                       child: TextButton(
+                        //button for resetting form
                         onPressed: () {
+                          //resetts everything in the form to default/empty fields
                           _formKey.currentState!.reset();
                           _imageFile = null;
                           _pdfFile = null;
@@ -354,6 +369,7 @@ class _NewManualState extends State<NewManual> {
                     Semantics(
                       label: 'Save Item Button',
                       child: ElevatedButton(
+                        //button for submitting form
                         onPressed: _saveItem,
                         child: Text("newManual.text.addItem".tr(),
                             style: TextStyle(

@@ -10,7 +10,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:user_manuals_app/widgets/favorites_button.dart';
 
-//TODO: ADD MORE COMMENTS
+//**
+// Flutter page for a displaying a single product with it's details
+// Lets user Open PDF in app or download it locally
+// Has favourites button if logged in to add to users favourites
+// */
 
 class ProductScreen extends StatelessWidget {
   ProductScreen({
@@ -21,6 +25,7 @@ class ProductScreen extends StatelessWidget {
   final Product item;
   final DatabaseManager db = DatabaseManager();
 
+  //method for getting PDF and opening the in app PDF viewer
   Future<void> _launchPDFViewer(BuildContext context, String pdfUrl) async {
     await Navigator.push(
       context,
@@ -28,6 +33,7 @@ class ProductScreen extends StatelessWidget {
     );
   }
 
+  //method for getting PDF and downloading locally to the device
   Future<void> downloadFile(BuildContext context, String url) async {
     EasyLoading.show(status: "Product.download".tr());
     Dio dio = Dio();
@@ -44,7 +50,7 @@ class ProductScreen extends StatelessWidget {
       bool dirDownloadExists = true;
       var directory;
       if (Platform.isAndroid) {
-        //work around for downloading to android downloads folder
+        //work around for downloading to android downloads folder instead of the app folder which is hard to find
         directory = "/storage/emulated/0/Download";
 
         dirDownloadExists = await Directory(directory).exists();
@@ -54,16 +60,17 @@ class ProductScreen extends StatelessWidget {
           directory = "/storage/emulated/0/Downloads";
         }
       } else {
-        //for other devices
+        //for other devices gets the normal download folder
         directory = await getDownloadsDirectory();
       }
       if (directory != null) {
-        // Specify the file path and name where you want to save the file
+        // Specify the file path and name where you want to save the file, appends product name and 'downloaded_file'
         String filePath = '$directory/${item.title}-downloaded_file.pdf';
         // Write the file to the downloads directory
         await File(filePath).writeAsBytes(response.data);
         EasyLoading.dismiss();
         ScaffoldMessenger.of(context).showSnackBar(
+          //message to user that file has been downloaded to filepath
           SnackBar(
             content: Text('File downloaded to: $filePath'),
             duration: const Duration(seconds: 5),
@@ -72,6 +79,7 @@ class ProductScreen extends StatelessWidget {
       } else {
         EasyLoading.dismiss();
         ScaffoldMessenger.of(context).showSnackBar(
+          //message to user that could not access directory
           const SnackBar(
             content: Text('Could not access downloads directory.'),
             duration: Duration(seconds: 5),
@@ -82,6 +90,7 @@ class ProductScreen extends StatelessWidget {
       EasyLoading.dismiss();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          //message to user that encountered error
           content: Text('Download error: $e'),
           duration: const Duration(seconds: 5),
         ),
@@ -108,6 +117,7 @@ class ProductScreen extends StatelessWidget {
               Text(item.title, style: Theme.of(context).textTheme.titleLarge),
           actions: [
             FavoritesButton(
+              //favourites button to add product to favourites
               item: item,
             )
           ],
@@ -122,6 +132,7 @@ class ProductScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: ClipRRect(
+                    //display image
                     borderRadius: BorderRadius.circular(500.0),
                     child: Image.network(
                       item.imageUrl,
@@ -149,11 +160,13 @@ class ProductScreen extends StatelessWidget {
                         height: 8,
                       ),
                       Text(
+                        //display model number if there or N/A if empty
                         "Product.modelNumber".tr() +
                             (item.modelNumber?.toString() ?? 'N/A'),
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Text(
+                        //display release year if there or N/A if empty
                         "Product.releaseYear".tr() +
                             (item.releaseYear?.toString() ?? 'N/A'),
                         style: Theme.of(context).textTheme.titleSmall,
@@ -167,6 +180,7 @@ class ProductScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextButton.icon(
+                              //button for opening PDF in app
                               onPressed: () {
                                 if (item.pdfUrl.isNotEmpty) {
                                   _launchPDFViewer(context, item.pdfUrl);
@@ -191,6 +205,7 @@ class ProductScreen extends StatelessWidget {
                               ),
                             ),
                             TextButton.icon(
+                              //button for downloading PDF locally
                               onPressed: () {
                                 if (item.pdfUrl.isNotEmpty) {
                                   downloadFile(context, item.pdfUrl);
